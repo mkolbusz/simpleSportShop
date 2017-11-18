@@ -1,0 +1,28 @@
+<div class="card">
+     <div class="card-body" [class.text-secondary]="!product.isAvailable()">
+     <img class="card-img-top" [src]="product.getImageUrl()" [alt]="product.name">
+      <div class="card-body">
+          
+          <h4 class="card-title">{{ product.name | uppercase }} </h4>
+          <p class="card-text" *ngIf="!isDescriptionVisible">{{ product.description | truncate:20}}&nbsp;<span class="pointer"  (click)="toggleDescription()">[read more]</span></p>
+          <p class="card-text" *ngIf="isDescriptionVisible">{{ product.description }}&nbsp;<span class="pointer" (click)="toggleDescription()">[hide]</span></p>
+          <p class="text-right font-weight-bold">Price: {{ product.price | currency:'EUR':true:'1.2-2' }}</p>
+          <div class="input-group" *ngIf="product.isAvailable()">
+            <span class="input-group-addon qty">Qty: {{product.qty}}</span>
+
+            <span class="input-group-addon" [class.good]="product.qtyAvailable >= 10" [class.bad]="product.qtyAvailable < 10" >of&nbsp;{{product.qtyAvailable}}</span>
+            <span class="input-group-btn">
+                <button class="btn btn-secondary btn-plus" type="button" (click)="increaseQty()" *ngIf="product.qtyAvailable > 0"><i class="fa fa-plus-circle" aria-hidden="true"></i></button>
+                <button class="btn btn-secondary btn-minus" type="button" (click)="decreaseQty()" *ngIf="product.qty > 0"><i class="fa fa-minus-circle" aria-hidden="true"></i></button>
+            </span>
+          </div>
+          <div class="btn-add-to-cart">
+              <button class="btn btn-info" type="button" (click)="addToCart()" *ngIf="product.isAvailable() && product.qty > 0"><i class="fa fa-cart-plus" aria-hidden="true"></i>&nbsp;Add to cart</button>
+          </div>
+          
+          <div *ngIf="!product.isAvailable()">
+            <p>Sold out!</p>
+          </div>
+      </div>
+    </div>
+</div>

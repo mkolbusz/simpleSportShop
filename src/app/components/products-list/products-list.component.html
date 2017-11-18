@@ -1,0 +1,16 @@
+<div class="row">
+  <div class="col">
+    <div class="jumbotron">
+      <h3 class="display-3" [style.color]="numberOfProducts > 10 ? 'green' : 'red'">{{ numberOfProducts }} rowerów w ofercie</h3>
+      <p class="lead">Największy wybór wśród sklepów internetowych!</p>
+    </div>
+  </div>
+</div>
+<div class="row">
+<div class="col">
+    <pagination-controls (pageChange)="page = $event"></pagination-controls>
+  <div class="card-deck">
+    <product-list-item *ngFor="let product of products | filterByCategory: categoriesService.categorySource.getValue() | paginate: {itemsPerPage: 3, currentPage: page}" [product]="product" (qtyChange)="qtyChange($event)"></product-list-item>
+  </div>
+  <pagination-controls (pageChange)="page = $event"></pagination-controls>
+</div>

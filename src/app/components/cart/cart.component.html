@@ -1,0 +1,20 @@
+<div class="card">
+  <div class="card-body">
+    <h4 class="card-title">Cart</h4>
+  </div>
+  <ul class="list-group list-group-flush">
+    <li class="list-group-item" *ngIf="products.length == 0">Empty cart</li>
+    <li class="list-group-item" *ngIf="products.length > 0">
+      Items: {{ getTotalNumber() }}<br/>
+      Total: {{ getTotalPrice() | currency }}
+    </li>
+    <li class="list-group-item" *ngIf="products.length > 0">
+      Last added product:<br/>
+      {{ getLastProduct().getName() }}
+    </li>
+  </ul>
+  <div class="card-body">
+    <a href="#" class="card-link">Show Cart</a>
+    <a href="#" class="card-link">Remove all</a>
+  </div>
+</div>

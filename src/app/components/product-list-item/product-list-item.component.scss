@@ -1,0 +1,41 @@
+.input-group-addon {
+    position: static;
+    color: #fff;
+    &.good {
+        background-color: #28a745;
+    }
+
+    &.bad {
+        background-color: #dc3545;
+    }
+}
+
+.input-group-btn {
+    position: static;
+    .btn {
+        border-radius: 0;
+    }
+     .btn-plus {
+        position:absolute;
+        right: 0;
+    }
+
+    .btn-minus {
+        position:absolute;
+        right: 40px;
+    }
+}
+
+.qty {
+    color: black;
+}
+
+.pointer {
+    cursor: pointer;
+    color: #17a2b8;
+}
+
+.btn-add-to-cart {
+    text-align: center;
+    margin: 10px 0;
+}
