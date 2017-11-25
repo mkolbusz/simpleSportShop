@@ -1,7 +1,6 @@
+import { CartService } from './../../services/cart.service';
+import { CartProduct } from './../../models/cart-product';
 import { Component, OnInit } from '@angular/core';
-import { Product } from '../../models/product';
-import { CartProduct } from '../../models/cart-product';
-import { CartService } from '../../services/cart.service';
 
 @Component({
   selector: 'cart',
@@ -12,37 +11,22 @@ export class CartComponent implements OnInit {
 
   products: CartProduct[];
 
-  constructor(private cartService: CartService) {
-    this.products = [];
-  }
+  constructor(private cartService: CartService) { }
 
   ngOnInit() {
-    this.cartService.cartState.subscribe((product:Product) => {
-      if (product) {
-        this.addToCart(product);
-      }
-    });
+    this.cartService.cartState.subscribe(products => this.products = products);
   }
 
-  addToCart(newProduct: Product) {
-    const product = this.products.find(p => p.getProduct().getId() === newProduct.getId());
-    if (!product) {
-      this.products.push(new CartProduct(newProduct, newProduct.qty));
-      return;
-    }
-    product.qty += newProduct.qty;
+  getTotal(): any {
+    return this.products.reduce((prev, current) => prev + current.getTotalPrice(), 0);
   }
 
-  getTotalPrice(): number {
-    return this.products.reduce((prev, current, i, a) => prev + current.getTotalPrice(), 0);
+  isEmpty(): boolean {
+    return this.products.length === 0;
   }
 
-  getTotalNumber(): number {
-    return this.products.length;
-  }
-
-  getLastProduct(): CartProduct {
-      return this.products[this.products.length - 1];
+  removeProduct(cartProduct: CartProduct) {
+    this.cartService.removeProduct(cartProduct);
   }
 
 }

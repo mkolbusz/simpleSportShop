@@ -1,0 +1,96 @@
+<h3>Dane do zamówienia</h3>
+<form #orderForm="ngForm">
+    <div class="row">
+        <div class="col-lg-6 col-md-12">
+            <section class="form-block">
+                <label>Dane zamawiającego</label>
+                <div class="form-group row">
+                    <div class="col-lg-2 col-md-12 col-sm-12 col-xs-12">
+                        <label for="gForm_1">Imię</label>
+                    </div>
+                    <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                        <input class="form-control" name="firstname" #name="ngModel" [(ngModel)]="order.client.firstname" type="text" id="gForm_1" placeholder="Anna" required>
+                        <span class="label label-danger" [hidden]="name.valid || name.pristine">Pole jest wymagane</span>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-lg-2 col-md-12 col-sm-12 col-xs-12">
+                        <label for="gForm_1">Nazwisko</label>
+                    </div>
+                    <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                        <input class="form-control" name="lastname" [(ngModel)]="order.client.lastname" type="text" id="gForm_1" placeholder="Kowalska">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-lg-2 col-md-12 col-sm-12 col-xs-12">
+                        <label for="gForm_1">Adres</label>
+                    </div>
+                    <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                        <input class="form-control" name="address" [(ngModel)]="order.client.address" type="text" id="gForm_1" placeholder="ul. Królewska 1/2a">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-lg-2 col-md-12 col-sm-12 col-xs-12">
+                        <label for="gForm_1">Kod pocztowy</label>
+                    </div>
+                    <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                        <input class="form-control" name="postcode" [(ngModel)]="order.client.postcode" type="text" id="gForm_1" placeholder="00-000">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-lg-2 col-md-12 col-sm-12 col-xs-12">
+                        <label for="gForm_1">Miejscowość</label>
+                    </div>
+                    <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                        <input class="form-control" name="city" [(ngModel)]="order.client.city" type="text" id="gForm_1" placeholder="Warszawa">
+                    </div>
+                </div>
+            </section>
+        </div>
+        <div class="col-lg-6 col-md-12">
+            <section class="form-block">
+                <label>Dane kontakowe</label>
+                
+                <div class="form-group row">
+                    <div class="col-lg-2 col-md-12 col-sm-12 col-xs-12">
+                        <label for="gForm_1">Email</label>
+                    </div>
+                    <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                        <input class="form-control" type="text" name="email" [(ngModel)]="order.client.email" id="gForm_1" placeholder="adres@email.pl">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-lg-2 col-md-12 col-sm-12 col-xs-12">
+                        <label for="gForm_1">Telefon kontakowy</label>
+                    </div>
+                    <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                        <input class="form-control" name="phone" [(ngModel)]="order.client.phone" type="text" id="gForm_1" placeholder="606 606 606">
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-12 col-md-8 offset-md-2">
+            <div>
+                <div class="checkbox-inline">
+                    <input type="checkbox" id="policy">
+                    <label for="policy">Wyrażam zgodę na przetwarzanie moich danych osobowych przez (dane firmy – nazwa, adres, nip, regon) w celu realizacji umowy w zgodzie z postanowieniami Polityki prywatności.</label>
+                </div>
+            </div>
+            <div>
+                <div class="checkbox-inline">
+                    <input type="checkbox" id="rules">
+                    <label for="rules">Akceptuję regulamin</label>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="text-center">
+                <button type="submit" class="btn btn-success" (click)="processOrder()">Złóż zamówienie</button>
+            </div>
+        </div>
+    </div>
+</form>

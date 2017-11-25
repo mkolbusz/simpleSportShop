@@ -1,12 +1,29 @@
-
-<div class="container">
-  <div class="row">
-    <div class="col-sm-12 col-lg-3">
-      <categories></categories>
-      <cart></cart>
+<div class="main-container">
+  <header class="header">
+    <div class="branding">
+        <h4 style="color: white">Sport Szop</h4>
     </div>
-    <div class="col-sm-12 col-lg-9">
-      <products-list></products-list>
+    <div class="header-nav">
+        <a href="javascript://" class="active nav-link nav-text">Dashboard</a>
+        <a href="javascript://" class="nav-link nav-text">Interactive Analytics</a>
     </div>
+    <div class="header-actions">
+        <a href="javascript://" class="nav-link nav-icon">
+            <clr-icon shape="cog"></clr-icon>
+        </a>
+    </div>
+  </header>
+  <div class="content-container">
+      <div class="content-area">
+          <router-outlet></router-outlet>
+      </div>
+      <clr-vertical-nav>
+        <label class="nav-header">Kategorie</label>
+        <categories></categories>
+        <div class="nav-divider"></div>
+        <label class="nav-header">Koszyk</label>
+        <cart-widget></cart-widget>
+      </clr-vertical-nav>
   </div>
 </div>
+<simple-notifications></simple-notifications>

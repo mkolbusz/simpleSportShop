@@ -1,7 +1,7 @@
-import { Product } from "./product";
+import { Product } from './product';
 
 export class CartProduct {
-    static lastId: number = 0;
+    static lastId = 0;
     id: number;
     product: Product;
     qty: number;
@@ -14,7 +14,7 @@ export class CartProduct {
 
     getPrice(): number {
         return this.product.getPrice();
-    };
+    }
 
     getName(): string {
         return this.product.getName();
@@ -22,7 +22,7 @@ export class CartProduct {
 
     getDescription(): string {
         return this.product.getDescription();
-    };
+    }
 
     getProduct(): Product {
         return this.product;
@@ -33,6 +33,6 @@ export class CartProduct {
     }
 
     getTotalPrice(): number {
-       return this.getPrice() * this.getQty(); 
+       return this.getPrice() * this.getQty();
     }
 }

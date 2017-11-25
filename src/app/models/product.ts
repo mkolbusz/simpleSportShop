@@ -1,23 +1,19 @@
 export class Product {
     $key: string;
-    qty: number;
-    isSoldOut: boolean;
 
     constructor(
-        private id: number,
-        private name: string,
-        private description: string,
-        public qtyAvailable: number,
-        private price: number,
-        private image: string,
+        public id: number,
+        public name: string,
+        public description: string,
+        public qty: number,
+        public price: number,
+        public image: string,
         public category: string
     ) {
-        this.isSoldOut = false;
-        this.qty = 0;
     }
 
-    isAvailable() {
-        return !this.isSoldOut;
+    isAvailable(): Boolean {
+        return this.qty > 0;
     }
 
     getImageUrl() {

@@ -1,3 +1,3 @@
-<ul class="list-group">
-    <li [class.active]="category == currentCategory" class="list-group-item" (click)="filterByCategory(category)" *ngFor="let category of categories">{{category}}</li>
-  </ul>
+
+<a clrVerticalNavLink [class.active]="category == currentCategory" routerLink="/" (click)="filterByCategory(category)" *ngFor="let category of categories">{{category}}</a>
+

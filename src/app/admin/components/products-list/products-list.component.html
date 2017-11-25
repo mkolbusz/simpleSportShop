@@ -1,0 +1,23 @@
+<h2>Lista produktów</h2>
+<clr-datagrid>
+    <clr-dg-column>Id</clr-dg-column>
+    <clr-dg-column>Nazwa</clr-dg-column>
+    <clr-dg-column>Ilość</clr-dg-column>
+    <clr-dg-column>Cena jedn.</clr-dg-column>
+    <clr-dg-column>Menu</clr-dg-column>
+
+    <clr-dg-row *ngFor="let product of products">
+        <clr-dg-cell>{{product.id}}</clr-dg-cell>
+        <clr-dg-cell>{{product.name}}</clr-dg-cell>
+        <clr-dg-cell>{{product.qtyAvailable}}</clr-dg-cell>
+        <clr-dg-cell>{{product.price | currency}}</clr-dg-cell>
+        <clr-dg-cell>
+            <button type="button" class="btn btn-icon btn-danger btn-sm" (onclick)="removeProduct(product)">
+                <clr-icon shape="trash"></clr-icon>
+                <span class="clr-icon-title">Usuń</span>
+            </button>
+        </clr-dg-cell>
+      </clr-dg-row>
+
+    <clr-dg-footer>{{products.length}} produktów</clr-dg-footer>
+</clr-datagrid>

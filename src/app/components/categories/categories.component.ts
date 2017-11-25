@@ -8,18 +8,19 @@ import { CategoriesService } from '../../services/categories.service';
 })
 export class CategoriesComponent implements OnInit {
 
-  currentCategory: string = "";
+  currentCategory: string;
   categories: string[];
 
-  constructor(private categoriesService: CategoriesService) { 
-    this.categories = categoriesService.getCategories();
+  constructor(private categoriesService: CategoriesService) {
+    categoriesService.getCategories().subscribe(categories => this.categories = categories);
+    this.currentCategory = null;
   }
 
   ngOnInit() {
     this.categoriesService.currentCategory.subscribe(category => this.currentCategory = category);
   }
 
-  filterByCategory(category:string):void {
+  filterByCategory(category: string): void {
     this.categoriesService.changeCategory(category);
   }
 

@@ -1,0 +1,11 @@
+<div class="cart-widget">
+  <p *ngIf="products.length == 0">Koszyk jest pusty</p>
+  <div *ngIf="products.length > 0">
+    <p>Ilość: {{ getTotalNumber() }}<br/>Do zapłaty: <strong>{{ getTotalPrice() | currency }}</strong></p>
+    <p>Ostatnio dodany: {{ getLastProduct().getName() }}</p>
+  </div>
+  <div class="card-body">
+  <a href="#" routerLink="/cart" class="btn btn-primary btn-block">Koszyk</a>
+    <button (click)="clearCart()" class="btn btn-block">Wyczyść</button>
+  </div>
+</div>

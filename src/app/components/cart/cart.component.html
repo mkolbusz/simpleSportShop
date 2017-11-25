@@ -1,20 +1,42 @@
-<div class="card">
-  <div class="card-body">
-    <h4 class="card-title">Cart</h4>
+<clr-datagrid>
+    <clr-dg-column>Id</clr-dg-column>
+    <clr-dg-column>Nazwa</clr-dg-column>
+    <clr-dg-column>Ilość</clr-dg-column>
+    <clr-dg-column>Cena jedn.</clr-dg-column>
+    <clr-dg-column>Wartość</clr-dg-column>
+    <clr-dg-column>Menu</clr-dg-column>
+
+    <clr-dg-row *ngFor="let cartProduct of products">
+        <clr-dg-cell>{{cartProduct.id}}</clr-dg-cell>
+        <clr-dg-cell>{{cartProduct.getName()}}</clr-dg-cell>
+        <clr-dg-cell>{{cartProduct.getQty()}}</clr-dg-cell>
+        <clr-dg-cell>{{cartProduct.getPrice() | currency}}</clr-dg-cell>
+        <clr-dg-cell>{{cartProduct.getTotalPrice() | currency }}</clr-dg-cell>
+        <clr-dg-cell>
+            <button type="button" class="btn btn-icon btn-danger btn-sm" (click)="removeProduct(cartProduct)">
+                <clr-icon shape="trash"></clr-icon>
+                <span class="clr-icon-title">Usuń</span>
+            </button>
+        </clr-dg-cell>
+    </clr-dg-row>
+    <clr-dg-row>
+        <clr-dg-cell></clr-dg-cell>
+        <clr-dg-cell></clr-dg-cell>
+        <clr-dg-cell></clr-dg-cell>
+        <clr-dg-cell></clr-dg-cell>
+        <clr-dg-cell><strong>Do zapłaty: {{ getTotal() | currency }}</strong></clr-dg-cell>
+        <clr-dg-cell></clr-dg-cell>
+    </clr-dg-row>
+
+    <clr-dg-footer>{{products.length}} products, <strong>Do zapłaty: {{ getTotal() | currency }}</strong></clr-dg-footer>
+</clr-datagrid>
+
+
+<div class="row">
+  <div class="col-xs-6">
+    <button class="btn btn-primary" routerLink="/">Kontynuuj zakupy</button>
   </div>
-  <ul class="list-group list-group-flush">
-    <li class="list-group-item" *ngIf="products.length == 0">Empty cart</li>
-    <li class="list-group-item" *ngIf="products.length > 0">
-      Items: {{ getTotalNumber() }}<br/>
-      Total: {{ getTotalPrice() | currency }}
-    </li>
-    <li class="list-group-item" *ngIf="products.length > 0">
-      Last added product:<br/>
-      {{ getLastProduct().getName() }}
-    </li>
-  </ul>
-  <div class="card-body">
-    <a href="#" class="card-link">Show Cart</a>
-    <a href="#" class="card-link">Remove all</a>
+  <div class="col-xs-6 text-right">
+    <button class="btn btn-success" routerLink="/checkout" [disabled]="isEmpty()">Zapłać</button>
   </div>
 </div>

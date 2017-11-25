@@ -1,6 +1,7 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Product } from '../../models/product';
 import { CartService } from '../../services/cart.service';
+import { NotificationsService } from 'angular2-notifications';
 
 @Component({
   selector: 'product-list-item',
@@ -9,17 +10,20 @@ import { CartService } from '../../services/cart.service';
 })
 export class ProductListItemComponent implements OnInit {
 
+
+
+  qty: number;
   @Input() product: Product;
   @Output() qtyChange = new EventEmitter<number>();
 
   isDescriptionVisible: boolean;
 
-  constructor(private cartService: CartService) {
+  constructor(private cartService: CartService, private notificationService: NotificationsService) {
     this.isDescriptionVisible = false;
-   }
+    this.qty = 0;
+  }
 
   ngOnInit() {
-    console.log(typeof this.product);
   }
 
   toggleDescription() {
@@ -27,27 +31,28 @@ export class ProductListItemComponent implements OnInit {
   }
 
   increaseQty() {
-    if (this.product.qtyAvailable > 0) {
-      this.product.qty++;
-      this.product.qtyAvailable--;
+    if (this.product.qty > 0) {
+      this.qty++;
+      this.product.qty--;
       this.qtyChange.emit(1);
     }
   }
 
   decreaseQty() {
-    if (this.product.qty > 0) {
-      this.product.qty--;
-      this.product.qtyAvailable++;
+    if (this.qty > 0) {
+      this.qty--;
+      this.product.qty++;
       this.qtyChange.emit(-1);
     }
   }
 
   addToCart() {
-    this.cartService.addToCart(this.product);
-    if (this.product.qtyAvailable === 0) {
-      this.product.isSoldOut = true;
-    }
-    this.product.qty = 0;
+    this.cartService.addToCart(this.product, this.qty);
+    this.qty = 0;
+    this.notificationService.success('Produkt został dodany do koszyka', '', {
+      timeOut: 2000,
+      showProgressBar: true,
+      clickToClose: false
+    });
   }
-
 }
