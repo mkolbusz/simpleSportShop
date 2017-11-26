@@ -4,7 +4,6 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
-import { SimpleNotificationsModule } from 'angular2-notifications';
 
 import { AppComponent } from './app.component';
 import { ProductsListComponent } from './components/products-list/products-list.component';
@@ -43,8 +42,7 @@ import { OrderService } from './services/order.service';
     routing,
     ClarityModule.forRoot(),
     FormsModule,
-    AdminModule,
-    SimpleNotificationsModule.forRoot()
+    AdminModule
   ],
   providers: [ProductsService, CategoriesService, CartService, OrderService],
   bootstrap: [AppComponent]

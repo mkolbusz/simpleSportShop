@@ -1,7 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Product } from '../../models/product';
 import { CartService } from '../../services/cart.service';
-import { NotificationsService } from 'angular2-notifications';
 
 @Component({
   selector: 'product-list-item',
@@ -18,7 +17,7 @@ export class ProductListItemComponent implements OnInit {
 
   isDescriptionVisible: boolean;
 
-  constructor(private cartService: CartService, private notificationService: NotificationsService) {
+  constructor(private cartService: CartService) {
     this.isDescriptionVisible = false;
     this.qty = 0;
   }
@@ -49,10 +48,5 @@ export class ProductListItemComponent implements OnInit {
   addToCart() {
     this.cartService.addToCart(this.product, this.qty);
     this.qty = 0;
-    this.notificationService.success('Produkt został dodany do koszyka', '', {
-      timeOut: 2000,
-      showProgressBar: true,
-      clickToClose: false
-    });
   }
 }
