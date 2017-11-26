@@ -47,4 +47,5 @@ import { OrderService } from './services/order.service';
   providers: [ProductsService, CategoriesService, CartService, OrderService],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+ }

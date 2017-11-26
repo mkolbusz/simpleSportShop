@@ -9,7 +9,10 @@
     <clr-dg-row *ngFor="let cartProduct of products">
         <clr-dg-cell>{{cartProduct.id}}</clr-dg-cell>
         <clr-dg-cell>{{cartProduct.getName()}}</clr-dg-cell>
-        <clr-dg-cell>{{cartProduct.getQty()}}</clr-dg-cell>
+        <clr-dg-cell>
+            {{cartProduct.getQty()}}
+           
+        </clr-dg-cell>
         <clr-dg-cell>{{cartProduct.getPrice() | currency}}</clr-dg-cell>
         <clr-dg-cell>{{cartProduct.getTotalPrice() | currency }}</clr-dg-cell>
         <clr-dg-cell>
@@ -17,7 +20,16 @@
                 <clr-icon shape="trash"></clr-icon>
                 <span class="clr-icon-title">Usuń</span>
             </button>
+            <div class="btn-group btn-primary btn-icon btn-sm">
+                <button class="btn" (click)="changeQty(cartProduct, -1)" *ngIf="cartProduct.qty > 0">
+                    <clr-icon shape="minus"></clr-icon>
+                </button>
+                <button class="btn" (click)="changeQty(cartProduct, 1)" *ngIf="cartProduct.qty < cartProduct.product.qty">
+                    <clr-icon shape="plus"></clr-icon>
+                </button>
+            </div>
         </clr-dg-cell>
+        
     </clr-dg-row>
     <clr-dg-row>
         <clr-dg-cell></clr-dg-cell>

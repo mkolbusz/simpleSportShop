@@ -1,3 +1,2 @@
 
-<a clrVerticalNavLink [class.active]="category == currentCategory" routerLink="/" (click)="filterByCategory(category)" *ngFor="let category of categories">{{category}}</a>
-
+<a clrVerticalNavLink [class.active]="category.isSelected()" routerLink="/" (click)="filterByCategory(category)" *ngFor="let category of categories"><clr-icon shape="check" *ngIf="category.isSelected()"></clr-icon>&nbsp;{{category.getName()}}</a>

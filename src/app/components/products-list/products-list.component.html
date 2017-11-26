@@ -10,7 +10,7 @@
 <div class="col-lg-12">
     <pagination-controls (pageChange)="page = $event"></pagination-controls>
   <div class="row">
-    <product-list-item class="col-lg-3" *ngFor="let product of products | filterByCategory: categoriesService.categorySource.getValue() | paginate: {itemsPerPage: 4, currentPage: page}" [product]="product" (qtyChange)="qtyChange($event)"></product-list-item>
+    <product-list-item class="col-lg-3" *ngFor="let product of products | filterByCategory: categoriesService.getActiveCategories() | paginate: {itemsPerPage: 4, currentPage: page}" [product]="product" (qtyChange)="qtyChange($event)"></product-list-item>
   </div>
   
   <pagination-controls (pageChange)="page = $event"></pagination-controls>

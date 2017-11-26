@@ -5,28 +5,32 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { of } from 'rxjs/observable/of';
 import 'rxjs/add/operator/map';
+import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 
 @Injectable()
 export class ProductsService {
 
-  products: Product[] = [];
+  private productsSource = new BehaviorSubject<Product[]>([]);
+  public productsState = this.productsSource.asObservable();
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {
+    this.loadProducts();
+  }
 
-  getProducts(): Observable<Product[]> {
-    return this.http.get<any[]>(AppSettings.DB_API_ENDPOINT + '/products.json').map(res => {
-      this.products = Object.keys(res).map(key => {
-        const p = res[key];
+  loadProducts(): void {
+    this.http.get<any[]>(AppSettings.DB_API_ENDPOINT + '/products.json').subscribe(products => {
+      const productsCreated = Object.keys(products).map(key => {
+        const p = products[key];
         return new Product(p.id, p.name, p.description, p.qty, p.price, p.image, p.category);
       });
-      return this.products;
+      this.productsSource.next(productsCreated);
     });
   }
 
-  addProductQty(product: Product, qty: number) {
-    const p = Array.from(this.products).find(_p => _p === product);
+  changeQty(product: Product, qty: number) {
+    const p = Array.from(this.productsSource.getValue()).find(_p => _p === product);
     p.qty += qty;
-    p.qty = 0;
+    this.productsSource.next(this.productsSource.getValue());
   }
 
   saveNewProduct(product: Product) {

@@ -1,5 +1,6 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { CategoriesService } from '../../services/categories.service';
+import { Category } from '../../models/category';
 
 @Component({
   selector: 'categories',
@@ -8,19 +9,16 @@ import { CategoriesService } from '../../services/categories.service';
 })
 export class CategoriesComponent implements OnInit {
 
-  currentCategory: string;
-  categories: string[];
+  categories: Category[];
 
   constructor(private categoriesService: CategoriesService) {
-    categoriesService.getCategories().subscribe(categories => this.categories = categories);
-    this.currentCategory = null;
   }
 
   ngOnInit() {
-    this.categoriesService.currentCategory.subscribe(category => this.currentCategory = category);
+    this.categoriesService.categoriesState.subscribe(categories => this.categories = categories);
   }
 
-  filterByCategory(category: string): void {
+  filterByCategory(category: Category): void {
     this.categoriesService.changeCategory(category);
   }
 
