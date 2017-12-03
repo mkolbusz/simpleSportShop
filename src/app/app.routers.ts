@@ -3,12 +3,14 @@ import { ProductsListComponent } from './components/products-list/products-list.
 import { CartComponent } from './components/cart/cart.component';
 import { ModuleWithProviders } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+import { LoginComponent } from './admin/components/login/login.component';
 
 
 export const routes: Routes = [
     { path: '', component: ProductsListComponent },
     { path: 'cart', component: CartComponent },
-    { path: 'checkout', component: CheckoutComponent }
+    { path: 'checkout', component: CheckoutComponent },
+    // { path: 'login', component: LoginComponent },
 ];
 
 export const routing: ModuleWithProviders = RouterModule.forRoot(routes);

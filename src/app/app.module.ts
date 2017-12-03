@@ -4,6 +4,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
+import { CustomFormsModule } from 'ng4-validators';
 
 import { AppComponent } from './app.component';
 import { ProductsListComponent } from './components/products-list/products-list.component';
@@ -17,6 +18,8 @@ import { NgxPaginationModule } from 'ngx-pagination';
 import { CartWidgetComponent } from './components/cart-widget/cart-widget.component';
 import { CartService } from './services/cart.service';
 import { ClarityModule } from 'clarity-angular';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { SimpleNotificationsModule } from 'angular2-notifications';
 
 import { environment } from './../environments/environment';
 import { routing } from './app.routers';
@@ -33,7 +36,7 @@ import { OrderService } from './services/order.service';
     FilterByCategoryPipe,
     CartWidgetComponent,
     CartComponent,
-    CheckoutComponent,
+    CheckoutComponent
   ],
   imports: [
     BrowserModule,
@@ -42,7 +45,10 @@ import { OrderService } from './services/order.service';
     routing,
     ClarityModule.forRoot(),
     FormsModule,
-    AdminModule
+    // AdminModule,
+    BrowserAnimationsModule,
+    CustomFormsModule,
+    SimpleNotificationsModule.forRoot()
   ],
   providers: [ProductsService, CategoriesService, CartService, OrderService],
   bootstrap: [AppComponent]

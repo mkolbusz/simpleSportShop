@@ -1,16 +1,31 @@
 <div class="main-container">
   <header class="header">
     <div class="branding">
-        <h4 style="color: white">Sport Szop</h4>
+        <a routerLink="/" class="nav-link">
+            <clr-icon shape="vm-bug"></clr-icon>
+            <span class="title">Project Clarity</span>
+        </a>
     </div>
     <div class="header-nav">
-        <a href="javascript://" class="active nav-link nav-text">Dashboard</a>
-        <a href="javascript://" class="nav-link nav-text">Interactive Analytics</a>
-    </div>
+            <a routerLink="/" class="active nav-link"><span class="nav-text">Strona główna</span></a>
+        </div>
     <div class="header-actions">
-        <a href="javascript://" class="nav-link nav-icon">
-            <clr-icon shape="cog"></clr-icon>
-        </a>
+        <form class="search">
+            <label for="search_input">
+                <input id="search_input" type="text" placeholder="Search for keywords...">
+            </label>
+        </form>
+        <clr-dropdown>
+            <button class="nav-icon" clrDropdownTrigger>
+                <clr-icon shape="cog"></clr-icon>
+                <clr-icon shape="caret down"></clr-icon>
+            </button>
+            <clr-dropdown-menu *clrIfOpen clrPosition="bottom-right">
+                <a href="/admin" clrDropdownItem>Panel administracyjny</a>
+                <a href="..." clrDropdownItem>Preferences</a>
+                <a href="..." clrDropdownItem>Wyloguj</a>
+            </clr-dropdown-menu>
+        </clr-dropdown>
     </div>
   </header>
   <div class="content-container">
@@ -26,3 +41,4 @@
       </clr-vertical-nav>
   </div>
 </div>
+<simple-notifications [options]="notificationsOptions"></simple-notifications>

@@ -1,8 +1,8 @@
+import { AppSettings } from '../app-settings';
 export class Product {
-    $key: string;
 
     constructor(
-        public id: number,
+        public _id: string,
         public name: string,
         public description: string,
         public qty: number,
@@ -17,11 +17,11 @@ export class Product {
     }
 
     getImageUrl() {
-        return '/assets/images/products/' + this.image;
+        return AppSettings.DB_API_ENDPOINT + '/assets/images/products/' + this._id + '/' + this.image;
     }
 
-    public getId(): number {
-        return this.id;
+    public getId(): string {
+        return this._id;
     }
 
     getPrice() {

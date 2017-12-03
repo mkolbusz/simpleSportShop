@@ -1,7 +1,11 @@
 import { ProductsService } from './../../../services/products.service';
 import { Product } from './../../../models/product';
-import { Component, OnInit } from '@angular/core';
-import * as uuid from 'uuid';
+import { Component, OnInit, Input } from '@angular/core';
+import { AppSettings } from '../../../app-settings';
+import { FileHolder } from 'angular2-image-upload/lib/image-upload/image-upload.component';
+import { CategoriesService } from '../../../services/categories.service';
+import { Category } from '../../../models/category';
+import { NotificationsService } from 'angular2-notifications';
 
 @Component({
   selector: 'app-new-product',
@@ -10,20 +14,42 @@ import * as uuid from 'uuid';
 })
 export class NewProductComponent implements OnInit {
 
-  product: Product;
+  @Input() product: Product;
+  categories: Category[];
   pathToFiles = [];
+  isNewCategoryModalOpen = false;
 
-  constructor(private productsService: ProductsService) {
-    this.product = new Product(null, '', '', 0, 0, '', '');
+  constructor(
+    private productsService: ProductsService,
+    private categoriesService: CategoriesService,
+    private notificationService: NotificationsService) {
+      this.product = new Product(null, '', '', 0, 0, '', '');
+      categoriesService.categoriesState.subscribe(categories => {
+        this.categories = categories;
+      });
   }
 
   ngOnInit() {
-    this.product.id = uuid();
-    this.pathToFiles.push('/assets/images/products/' + this.product.id  + '/');
   }
 
   saveProduct() {
-    this.productsService.saveNewProduct(this.product);
+    this.productsService.saveNewProduct(this.product).subscribe(
+      res => {
+        this.notificationService.success('Dodawanie produktu', 'Produkt został dodany pomyślnie');
+      },
+      err => {
+        this.notificationService.error('Dodawanie produktu', 'Wystąpił błąd podczas dodawania produktu');
+      });
+  }
+
+  onUploadFinished(file: FileHolder) {
+    const image = JSON.parse(file.serverResponse['_body']);
+    this.product.image = image.filename;
+  }
+
+  handleNewCategory() {
+    this.categories.push(new Category(this.product.category));
+    this.isNewCategoryModalOpen = false;
   }
 
 }

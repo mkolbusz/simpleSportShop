@@ -12,11 +12,15 @@ import { Component, OnInit } from '@angular/core';
 export class CheckoutComponent implements OnInit {
 
   order: Order;
+  personalDataRules: boolean;
+  shopRules: boolean;
 
   constructor(private orderService: OrderService, private cartService: CartService) {
     this.orderService.orderState.subscribe(order => {
       this.order = order;
     });
+    this.personalDataRules = false;
+    this.shopRules = false;
   }
 
   ngOnInit() {

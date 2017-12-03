@@ -1,0 +1,29 @@
+<form #loginForm="ngForm" (ngSubmit)="onSubmit()">
+    <section class="form-block">
+        <label>Login</label>
+        <div class="form-group">
+            <label for="empFirstName">E-mail address:</label>
+
+            <input type="email" id="email" placeholder="email@example.com"
+                    required
+                    name="emailInput"
+                    [(ngModel)]="email"
+                    #emailInput="ngModel">
+            <span class="label label-danger" *ngIf="emailInput.errors?.required">Pole jest wymagane</span>
+            
+        </div>
+        <div class="form-group">
+            <label for="passwordInput">Password</label>
+
+            <input type="text" id="passwordInput" placeholder="Enter last name"
+                    required
+                    name="passwordInput"
+                    [(ngModel)]="password"
+                    #passwordInput="ngModel">
+            <span class="label label-danger" *ngIf="passwordInput.errors?.required">Pole jest wymagane</span>
+           
+        </div>
+        <button class="btn btn-primary" type="submit"
+            [disabled]="loginForm.form.invalid">Login</button>
+    </section>
+</form>

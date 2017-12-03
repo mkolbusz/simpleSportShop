@@ -24,9 +24,7 @@ export class ProductsListComponent implements OnInit {
   ngOnInit() {
     this.productsService.productsState.subscribe(products => {
       this.products = products;
-      this.numberOfProducts = this.products.reduce((prev, el) => {
-        return prev + el.qty;
-      }, 0);
+      this.numberOfProducts = this.products.length;
     });
   }
 

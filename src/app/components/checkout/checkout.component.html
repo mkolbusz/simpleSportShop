@@ -1,48 +1,52 @@
 <h3>Dane do zamówienia</h3>
-<form #orderForm="ngForm">
+<form #orderForm="ngForm" (onSubmit)="processOrder()">
     <div class="row">
         <div class="col-lg-6 col-md-12">
             <section class="form-block">
                 <label>Dane zamawiającego</label>
                 <div class="form-group row">
                     <div class="col-lg-2 col-md-12 col-sm-12 col-xs-12">
-                        <label for="gForm_1">Imię</label>
+                        <label>Imię</label>
                     </div>
                     <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
-                        <input class="form-control" name="firstname" #name="ngModel" [(ngModel)]="order.client.firstname" type="text" id="gForm_1" placeholder="Anna" required>
-                        <span class="label label-danger" [hidden]="name.valid || name.pristine">Pole jest wymagane</span>
+                        <input class="form-control" name="firstname" #firstname="ngModel" [(ngModel)]="order.client.firstname" type="text" placeholder="Anna" required>
+                        <span class="label label-danger" *ngIf="firstname.errors?.required">Pole jest wymagane</span>
                     </div>
                 </div>
                 <div class="form-group row">
                     <div class="col-lg-2 col-md-12 col-sm-12 col-xs-12">
-                        <label for="gForm_1">Nazwisko</label>
+                        <label>Nazwisko</label>
                     </div>
                     <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
-                        <input class="form-control" name="lastname" [(ngModel)]="order.client.lastname" type="text" id="gForm_1" placeholder="Kowalska">
+                        <input class="form-control" name="lastname" [(ngModel)]="order.client.lastname" type="text" placeholder="Kowalska" #lastname="ngModel" required>
+                        <span class="label label-danger" *ngIf="lastname.errors?.required">Pole jest wymagane</span>
                     </div>
                 </div>
                 <div class="form-group row">
                     <div class="col-lg-2 col-md-12 col-sm-12 col-xs-12">
-                        <label for="gForm_1">Adres</label>
+                        <label>Adres</label>
                     </div>
                     <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
-                        <input class="form-control" name="address" [(ngModel)]="order.client.address" type="text" id="gForm_1" placeholder="ul. Królewska 1/2a">
+                        <input class="form-control" name="address" [(ngModel)]="order.client.address" type="text" placeholder="ul. Królewska 1/2a" #address="ngModel" required>
+                        <span class="label label-danger" *ngIf="address.errors?.required">Pole jest wymagane</span>
                     </div>
                 </div>
                 <div class="form-group row">
                     <div class="col-lg-2 col-md-12 col-sm-12 col-xs-12">
-                        <label for="gForm_1">Kod pocztowy</label>
+                        <label>Kod pocztowy</label>
                     </div>
                     <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
-                        <input class="form-control" name="postcode" [(ngModel)]="order.client.postcode" type="text" id="gForm_1" placeholder="00-000">
+                        <input class="form-control" name="postcode" [(ngModel)]="order.client.postcode" type="text" placeholder="00-000" #postcode="ngModel" required>
+                        <span class="label label-danger" *ngIf="postcode.errors?.required">Pole jest wymagane</span>
                     </div>
                 </div>
                 <div class="form-group row">
                     <div class="col-lg-2 col-md-12 col-sm-12 col-xs-12">
-                        <label for="gForm_1">Miejscowość</label>
+                        <label>Miejscowość</label>
                     </div>
                     <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
-                        <input class="form-control" name="city" [(ngModel)]="order.client.city" type="text" id="gForm_1" placeholder="Warszawa">
+                        <input class="form-control" name="city" [(ngModel)]="order.client.city" type="text" placeholder="Warszawa"#city="ngModel" required>
+                        <span class="label label-danger" *ngIf="city.errors?.required">Pole jest wymagane</span>
                     </div>
                 </div>
             </section>
@@ -53,18 +57,20 @@
                 
                 <div class="form-group row">
                     <div class="col-lg-2 col-md-12 col-sm-12 col-xs-12">
-                        <label for="gForm_1">Email</label>
+                        <label>Email</label>
                     </div>
                     <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
-                        <input class="form-control" type="text" name="email" [(ngModel)]="order.client.email" id="gForm_1" placeholder="adres@email.pl">
+                        <input class="form-control" type="text" name="email" [(ngModel)]="order.client.email" placeholder="adres@email.pl" #email="ngModel" required>
+                        <span class="label label-danger" *ngIf="email.errors?.required">Pole jest wymagane</span>
                     </div>
                 </div>
                 <div class="form-group row">
                     <div class="col-lg-2 col-md-12 col-sm-12 col-xs-12">
-                        <label for="gForm_1">Telefon kontakowy</label>
+                        <label>Telefon kontakowy</label>
                     </div>
                     <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
-                        <input class="form-control" name="phone" [(ngModel)]="order.client.phone" type="text" id="gForm_1" placeholder="606 606 606">
+                        <input class="form-control" name="phone" [(ngModel)]="order.client.phone" type="text" placeholder="606 606 606" #phone="ngModel" required>
+                        <span class="label label-danger" *ngIf="phone.errors?.required">Pole jest wymagane</span>
                     </div>
                 </div>
             </section>
@@ -74,14 +80,16 @@
         <div class="col-xs-12 col-md-8 offset-md-2">
             <div>
                 <div class="checkbox-inline">
-                    <input type="checkbox" id="policy">
+                    <input type="checkbox" id="policy" name="policy" [(ngModel)]="personalDataRules" #policy="ngModel" required>
                     <label for="policy">Wyrażam zgodę na przetwarzanie moich danych osobowych przez (dane firmy – nazwa, adres, nip, regon) w celu realizacji umowy w zgodzie z postanowieniami Polityki prywatności.</label>
+                    <span class="label label-danger" *ngIf="policy.errors?.required">Musisz wyrazić zgodę na przetwarzanie danych osobowych</span>
                 </div>
             </div>
             <div>
                 <div class="checkbox-inline">
-                    <input type="checkbox" id="rules">
+                    <input type="checkbox" id="rules" name="rules" [(ngModel)]="shopRules" #rules="ngModel" required>
                     <label for="rules">Akceptuję regulamin</label>
+                    <span class="label label-danger" *ngIf="rules.errors?.required">Musisz zaakceptować regulamin sklepu</span>
                 </div>
             </div>
         </div>
@@ -89,7 +97,8 @@
     <div class="row">
         <div class="col-xs-12">
             <div class="text-center">
-                <button type="submit" class="btn btn-success" (click)="processOrder()">Złóż zamówienie</button>
+                {{ orderForm.error | json }}
+                <button type="submit" class="btn btn-success" [disabled]="!orderForm.form.valid">Złóż zamówienie</button>
             </div>
         </div>
     </div>

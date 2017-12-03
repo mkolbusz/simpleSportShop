@@ -7,6 +7,10 @@ import { ClarityModule } from 'clarity-angular';
 import { NewProductComponent } from './components/new-product/new-product.component';
 import { FormsModule } from '@angular/forms';
 import { ImageUploadModule } from 'angular2-image-upload';
+import { LoginComponent } from './components/login/login.component';
+import { AuthService } from './services/auth.service';
+import { AuthGuard } from './guards/auth.guard';
+import { EditProductComponent } from './components/edit-product/edit-product.component';
 
 @NgModule({
   imports: [
@@ -16,6 +20,7 @@ import { ImageUploadModule } from 'angular2-image-upload';
     FormsModule,
     ImageUploadModule.forRoot()
   ],
-  declarations: [ProductsListComponent, NewProductComponent]
+  declarations: [ProductsListComponent, NewProductComponent, LoginComponent, EditProductComponent],
+  providers: [AuthService, AuthGuard]
 })
 export class AdminModule { }

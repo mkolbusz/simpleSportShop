@@ -10,13 +10,21 @@ import { Component, OnInit } from '@angular/core';
 export class ProductsListComponent implements OnInit {
 
   products: Product[];
+  editedProduct: Product;
 
-  constructor(private productService: ProductsService) { }
+  constructor(private productService: ProductsService) {
+    this.editedProduct = null;
+   }
 
   ngOnInit() {
     this.productService.productsState.subscribe(products => {
       this.products = products;
     });
+  }
+
+
+  editProduct(product: Product) {
+    this.editedProduct = product;
   }
 
 }
