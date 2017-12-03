@@ -4,7 +4,6 @@ import { Order } from './../models/order';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { AppSettings } from '../app-settings';
-import * as uuid from 'uuid';
 import { CartService } from './cart.service';
 
 @Injectable()
@@ -15,7 +14,7 @@ export class OrderService {
   order: Order;
 
   constructor(private http: HttpClient) {
-    this.order = new Order([], new Client('', '', '', '', '', '', ''));
+    this.order = new Order(null, [], new Client('', '', '', '', '', '', ''));
     this.orderSource.next(this.order);
   }
 
@@ -25,13 +24,12 @@ export class OrderService {
   }
 
   clearOrder() {
-    this.order = new Order([], new Client('', '', '', '', '', '', ''));
+    this.order = new Order(null, [], new Client('', '', '', '', '', '', ''));
     this.orderSource.next(this.order);
   }
 
   saveOrder() {
-    const id = uuid();
-    this.http.put(AppSettings.DB_API_ENDPOINT + '/orders/' + id + '.json', this.order).subscribe(
+    this.http.put(AppSettings.DB_API_ENDPOINT + '/order/new', this.order).subscribe(
       res => {
         console.log(res);
       },

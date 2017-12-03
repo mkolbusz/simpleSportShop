@@ -4,16 +4,20 @@ import { ProductsListComponent } from './components/products-list/products-list.
 import { NewProductComponent } from './components/new-product/new-product.component';
 import { LoginComponent } from './components/login/login.component';
 import { AuthGuard } from './guards/auth.guard';
+import { AdminToolsComponent } from './components/admin-tools/admin-tools.component';
+import { OrdersListComponent } from './components/orders-list/orders-list.component';
 
 
 
 export const routes: Routes = [
     {
         path: 'admin',
-        // canActivate: [AuthGuard],
+        component: AdminToolsComponent,
+        canActivate: [AuthGuard],
         children: [
             { path: 'products', component: ProductsListComponent },
-            { path: 'new-product', component: NewProductComponent}
+            { path: 'new-product', component: NewProductComponent},
+            { path: 'orders', component: OrdersListComponent}
         ],
     }
 ];

@@ -20,11 +20,36 @@ import { CartService } from './services/cart.service';
 import { ClarityModule } from 'clarity-angular';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { SimpleNotificationsModule } from 'angular2-notifications';
+import { SocialLoginModule, AuthServiceConfig, GoogleLoginProvider, FacebookLoginProvider, LinkedinLoginProvider } from 'ng4-social-login';
+import { SocketIoModule, SocketIoConfig } from 'ng-socket-io';
 
 import { environment } from './../environments/environment';
 import { routing } from './app.routers';
 import { CheckoutComponent } from './components/checkout/checkout.component';
 import { OrderService } from './services/order.service';
+
+
+const CONFIG = new AuthServiceConfig([
+  {
+    id: GoogleLoginProvider.PROVIDER_ID,
+    provider: new GoogleLoginProvider('1067732667127-mnv03s04gq8ld62hh18uu6ve5h6q5bo0.apps.googleusercontent.com')
+  }
+  // {
+  //   id: FacebookLoginProvider.PROVIDER_ID,
+  //   provider: new FacebookLoginProvider('Facebook-App-Id')
+  // },
+  // {
+  //   id: LinkedinLoginProvider.PROVIDER_ID,
+  //   provider: new LinkedinLoginProvider('LINKEDIN_CLIENT_ID')
+  // }
+]);
+
+const socketConfig: SocketIoConfig = { url: 'http://localhost:3000', options: {} };
+
+export function provideConfig() {
+  return CONFIG;
+}
+
 
 @NgModule({
   declarations: [
@@ -45,13 +70,19 @@ import { OrderService } from './services/order.service';
     routing,
     ClarityModule.forRoot(),
     FormsModule,
-    // AdminModule,
+    AdminModule,
     BrowserAnimationsModule,
     CustomFormsModule,
-    SimpleNotificationsModule.forRoot()
+    SimpleNotificationsModule.forRoot(),
+    SocialLoginModule,
+    SocketIoModule.forRoot(socketConfig)
   ],
-  providers: [ProductsService, CategoriesService, CartService, OrderService],
+  providers: [
+    ProductsService, CategoriesService, CartService, OrderService,
+    { provide: AuthServiceConfig, useFactory: provideConfig }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule {
  }
+

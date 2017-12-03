@@ -10,7 +10,7 @@ export const routes: Routes = [
     { path: '', component: ProductsListComponent },
     { path: 'cart', component: CartComponent },
     { path: 'checkout', component: CheckoutComponent },
-    // { path: 'login', component: LoginComponent },
+    { path: 'login', component: LoginComponent },
 ];
 
 export const routing: ModuleWithProviders = RouterModule.forRoot(routes);

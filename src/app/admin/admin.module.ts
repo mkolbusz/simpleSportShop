@@ -11,6 +11,9 @@ import { LoginComponent } from './components/login/login.component';
 import { AuthService } from './services/auth.service';
 import { AuthGuard } from './guards/auth.guard';
 import { EditProductComponent } from './components/edit-product/edit-product.component';
+import { AdminToolsComponent } from './components/admin-tools/admin-tools.component';
+import { OrdersListComponent } from './components/orders-list/orders-list.component';
+import { OrdersService } from './services/orders.service';
 
 @NgModule({
   imports: [
@@ -20,7 +23,8 @@ import { EditProductComponent } from './components/edit-product/edit-product.com
     FormsModule,
     ImageUploadModule.forRoot()
   ],
-  declarations: [ProductsListComponent, NewProductComponent, LoginComponent, EditProductComponent],
-  providers: [AuthService, AuthGuard]
+  declarations: [ProductsListComponent, NewProductComponent, LoginComponent,
+    EditProductComponent, AdminToolsComponent, OrdersListComponent],
+  providers: [AuthService, AuthGuard, OrdersService]
 })
 export class AdminModule { }

@@ -1,5 +1,5 @@
 <h3>Dane do zamówienia</h3>
-<form #orderForm="ngForm" (onSubmit)="processOrder()">
+<form #orderForm="ngForm" (ngSubmit)="processOrder()">
     <div class="row">
         <div class="col-lg-6 col-md-12">
             <section class="form-block">
@@ -97,7 +97,6 @@
     <div class="row">
         <div class="col-xs-12">
             <div class="text-center">
-                {{ orderForm.error | json }}
                 <button type="submit" class="btn btn-success" [disabled]="!orderForm.form.valid">Złóż zamówienie</button>
             </div>
         </div>

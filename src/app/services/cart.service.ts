@@ -3,51 +3,49 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { Product } from '../models/product';
 import { CartProduct } from '../models/cart-product';
+import { NotificationsService } from 'angular2-notifications';
 
 @Injectable()
 export class CartService {
 
-  private cartSource = new BehaviorSubject<CartProduct[]>(null);
-  public cartState = this.cartSource.asObservable();
+  private cart = new BehaviorSubject<CartProduct[]>([]);
+  public cartState = this.cart.asObservable();
 
-  private products: CartProduct[];
-
-  constructor(private productService: ProductsService) {
-    this.products = [];
-    this.cartSource.next(this.products);
+  constructor(private productService: ProductsService, private notificationsService: NotificationsService) {
   }
 
   addToCart(product: Product, qty: number) {
-    const existedProduct = this.products.find(p => p.getProduct() === product);
+    const existedProduct = this.cart.getValue().find(p => p.getProduct() === product);
     if (!existedProduct) {
-      this.products.push(new CartProduct(product, qty));
+      this.cart.getValue().push(new CartProduct(product, qty));
     } else {
       existedProduct.qty += qty;
     }
 
-    this.cartSource.next(this.products);
+    this.cart.next(this.cart.getValue());
     this.productService.changeQty(product, -qty);
   }
 
   getProducts(): CartProduct[] {
-    return this.products;
+    return this.cart.getValue();
   }
 
   clearCart(): void {
-    this.products = [];
-    this.cartSource.next(this.products);
+    this.cart.next([]);
+    this.notificationsService.info('Koszyk', 'Koszyk został wyczyszczony');
   }
 
   removeProduct(cartProduct: CartProduct) {
-    this.products = this.products.filter((v) => v !== cartProduct);
-    this.cartSource.next(this.products);
+    const newCart = this.cart.getValue().filter((v) => v !== cartProduct);
+    this.cart.next(newCart);
     this.productService.changeQty(cartProduct.product, cartProduct.qty);
   }
 
   changeQty(cartProduct: CartProduct, qty: number) {
-    this.products.find(p => p === cartProduct).qty += qty;
+    const product = this.cart.getValue().find(p => p === cartProduct);
+    product.qty += qty;
     this.productService.changeQty(cartProduct.product, qty);
-    this.cartSource.next(this.products);
+    this.cart.next(this.cart.getValue());
   }
 
 }

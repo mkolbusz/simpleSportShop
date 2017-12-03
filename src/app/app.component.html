@@ -23,7 +23,7 @@
             <clr-dropdown-menu *clrIfOpen clrPosition="bottom-right">
                 <a href="/admin" clrDropdownItem>Panel administracyjny</a>
                 <a href="..." clrDropdownItem>Preferences</a>
-                <a href="..." clrDropdownItem>Wyloguj</a>
+                <a (click)="logout()" clrDropdownItem>Wyloguj</a>
             </clr-dropdown-menu>
         </clr-dropdown>
     </div>

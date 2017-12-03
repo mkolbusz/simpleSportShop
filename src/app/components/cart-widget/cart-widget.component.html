@@ -5,7 +5,7 @@
     <p>Ostatnio dodany: {{ getLastProduct().getName() }}</p>
   </div>
   <div class="card-body">
-  <a href="#" routerLink="/cart" class="btn btn-primary btn-block">Koszyk</a>
+  <a routerLink="/cart" class="btn btn-primary btn-block">Koszyk</a>
     <button (click)="clearCart()" class="btn btn-block">Wyczyść</button>
   </div>
 </div>

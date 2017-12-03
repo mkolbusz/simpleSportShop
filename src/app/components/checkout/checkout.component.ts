@@ -27,7 +27,8 @@ export class CheckoutComponent implements OnInit {
   }
 
   processOrder() {
-    this.order.products = this.cartService.getProducts();
+    console.log("test");
+    this.order.setProducts(this.cartService.getProducts());
     this.orderService.setOrder(this.order);
     this.orderService.saveOrder();
   }

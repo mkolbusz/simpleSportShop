@@ -12,6 +12,10 @@ export class Product {
     ) {
     }
 
+    static fromJsonObject(obj: any): Product {
+        return new Product(obj.id, obj.name, obj.description, obj.number, obj.price, obj.image, obj.category);
+    }
+
     isAvailable(): Boolean {
         return this.qty > 0;
     }

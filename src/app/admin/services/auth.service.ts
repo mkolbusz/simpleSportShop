@@ -9,4 +9,8 @@ export class AuthService {
   login(email: string, password: string) {
     localStorage.setItem('currentUser', email);
   }
+
+  logout() {
+    localStorage.removeItem('currentUser');
+  }
 }
