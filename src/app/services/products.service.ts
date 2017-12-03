@@ -6,6 +6,7 @@ import { HttpClient } from '@angular/common/http';
 import { of } from 'rxjs/observable/of';
 import 'rxjs/add/operator/map';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+import { NotificationsService } from 'angular2-notifications';
 
 @Injectable()
 export class ProductsService {
@@ -13,7 +14,7 @@ export class ProductsService {
   private products = new BehaviorSubject<Product[]>([]);
   public productsState = this.products.asObservable();
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient, private notifyService: NotificationsService) {
     this.loadProducts();
   }
 
@@ -36,4 +37,24 @@ export class ProductsService {
   saveNewProduct(product: Product) {
     return this.http.put(AppSettings.DB_API_ENDPOINT + 'products/new', product);
   }
+
+  applyPromotion(promotion) {
+    promotion.products.map(product => {
+      const pr = this.products.getValue().find(p => p._id === product._id);
+      pr.price = pr.price - pr.price * (promotion.discount / 100.00);
+    });
+    this.products.next(this.products.getValue());
+    this.notifyService.info('Promocja', 'Pojawiły się nowe promocje');
+  }
+
+  endPromotion(promotion) {
+    promotion.products.map(product => {
+      const pr = this.products.getValue().find(p => p._id === product._id);
+      pr.price = product.price;
+    });
+
+    this.products.next(this.products.getValue());
+    this.notifyService.info('Promocja', 'Promocja zakończyła się');
+  }
+
 }

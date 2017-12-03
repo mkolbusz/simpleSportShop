@@ -11,9 +11,11 @@ export class ProductsListComponent implements OnInit {
 
   products: Product[];
   editedProduct: Product;
+  selectedProducts: Product[];
 
   constructor(private productService: ProductsService) {
     this.editedProduct = null;
+    this.selectedProducts = [];
    }
 
   ngOnInit() {
@@ -21,7 +23,6 @@ export class ProductsListComponent implements OnInit {
       this.products = products;
     });
   }
-
 
   editProduct(product: Product) {
     this.editedProduct = product;

@@ -1,14 +1,16 @@
 <h2>Lista produktów</h2>
 
 <a routerLink='/admin/new-product' class="btn btn-primary">Dodaj nowy produkt</a>
-<clr-datagrid>
+<promotion-modal [products]="selectedProducts"></promotion-modal>
+
+<clr-datagrid [(clrDgSelected)]="selectedProducts">
     <clr-dg-column [clrDgField]="'_id'">Id</clr-dg-column>
     <clr-dg-column [clrDgField]="'name'">Nazwa</clr-dg-column>
     <clr-dg-column [clrDgField]="'qty'">Ilość</clr-dg-column>
     <clr-dg-column [clrDgField]="'price'">Cena jedn.</clr-dg-column>
     <clr-dg-column>Menu</clr-dg-column>
 
-    <clr-dg-row *clrDgItems="let product of products">
+    <clr-dg-row *clrDgItems="let product of products" [clrDgItem]="product">
         <clr-dg-cell>{{product._id}}</clr-dg-cell>
         <clr-dg-cell>{{product.name}}</clr-dg-cell>
         <clr-dg-cell>{{product.qty}}</clr-dg-cell>
@@ -22,11 +24,8 @@
                 <clr-icon shape="trash"></clr-icon>
                 <span class="clr-icon-title">Usuń</span>
             </button>
-            
         </clr-dg-cell>
       </clr-dg-row>
 
     <clr-dg-footer>{{products.length}} produktów</clr-dg-footer>
 </clr-datagrid>
-
-<edit-product [product]="editedProduct"></edit-product>

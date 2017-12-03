@@ -32,13 +32,12 @@ export class ProductsListComponent implements OnInit {
       this.products = products;
       this.numberOfProducts = this.products.length;
     });
-    this.socket.connect();
+    
+
   }
 
   qtyChange(qty: number) {
     this.numberOfProducts -= qty;
-    console.log("changeQty");
-    this.socket.emit('changeQty', {dupa: 'dupa'});
   }
 
 }

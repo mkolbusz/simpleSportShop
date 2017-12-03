@@ -1,0 +1,35 @@
+<button class="btn btn-primary" [class.tooltip]="!products.length" [disabled]="!products.length" (click)="isOpen = true">Stwórz promocje
+    <span class="tooltip-content" *ngIf="!products.length">Zaznacz produkty, dla których chcesz zdefiniować promocję</span>
+</button>
+
+<clr-modal [(clrModalOpen)]="isOpen" [clrModalSize]="'lg'">
+  <h3 class="modal-title">Tworzenie promocji</h3>
+  <h4>Produkty w promocji</h4>
+  <div class="modal-body">
+    <table class="table">
+      <thead>
+          <tr>
+              <th>ID</th>
+              <th>Nazwa</th>
+              <th>Cena</th>
+              <th>Cena po zniżce</th>
+          </tr>
+      </thead>
+      <tbody>
+          <tr *ngFor="let product of products">
+              <td>{{ product.id }}</td>
+              <td>{{ product.name }}</td>
+              <td>{{ product.price | currency }}</td>
+              <td>{{ product.price - product.price * (discount/100.0) | currency }}</td>
+          </tr>
+      </tbody>
+    </table>
+
+    <h4>Definicja promocji</h4>
+    <input type="number" [(ngModel)]="discount"> % zniżki przez następne <input type="number" [(ngModel)]="time"> minut od stworzenia promocji
+  </div>
+  <div class="modal-footer">
+      <button type="button" class="btn btn-outline" (click)="isOpen = false">Anuluj</button>
+      <button type="button" class="btn btn-primary" (click)="savePromotion()">Zapisz</button>
+  </div>
+</clr-modal>

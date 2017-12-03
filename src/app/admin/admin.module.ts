@@ -14,6 +14,7 @@ import { EditProductComponent } from './components/edit-product/edit-product.com
 import { AdminToolsComponent } from './components/admin-tools/admin-tools.component';
 import { OrdersListComponent } from './components/orders-list/orders-list.component';
 import { OrdersService } from './services/orders.service';
+import { PromotionModalComponent } from './components/promotion-modal/promotion-modal.component';
 
 @NgModule({
   imports: [
@@ -24,7 +25,7 @@ import { OrdersService } from './services/orders.service';
     ImageUploadModule.forRoot()
   ],
   declarations: [ProductsListComponent, NewProductComponent, LoginComponent,
-    EditProductComponent, AdminToolsComponent, OrdersListComponent],
+    EditProductComponent, AdminToolsComponent, OrdersListComponent, PromotionModalComponent],
   providers: [AuthService, AuthGuard, OrdersService]
 })
 export class AdminModule { }
