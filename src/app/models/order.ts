@@ -12,7 +12,7 @@ export class Order {
     constructor(
         private id: string,
         private products: CartProduct[],
-        private client: Client,
+        public client: Client,
         private status: OrderStatus = OrderStatus.WAITING_FOR_ACTIVATION
     ) {
     }

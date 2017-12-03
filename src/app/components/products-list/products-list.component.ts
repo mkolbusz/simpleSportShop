@@ -19,7 +19,7 @@ export class ProductsListComponent implements OnInit {
 
   constructor(
     private productsService: ProductsService,
-    private categoriesService: CategoriesService,
+    public categoriesService: CategoriesService,
     private socket: Socket
   ) {
     this.page = 1;
