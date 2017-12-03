@@ -2,7 +2,6 @@
   "name": "bikes-sales-manager",
   "version": "0.0.0",
   "license": "MIT",
-  "main": "index.html",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
