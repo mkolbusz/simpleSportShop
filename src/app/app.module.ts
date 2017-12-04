@@ -33,6 +33,7 @@ import { SearchPropertyPipe } from './pipes/search-property.pipe';
 import { FilterService } from './services/filter.service';
 import { PriceRangeComponent } from './components/price-range/price-range.component';
 import { PriceRangePipe } from './pipes/price-range.pipe';
+import { AppSettings } from './app-settings';
 
 
 const CONFIG = new AuthServiceConfig([
@@ -50,7 +51,7 @@ const CONFIG = new AuthServiceConfig([
   // }
 ]);
 
-const socketConfig: SocketIoConfig = { url: 'http://localhost:3000', options: {} };
+const socketConfig: SocketIoConfig = { url: AppSettings.API_URL, options: {} };
 
 export function provideConfig() {
   return CONFIG;
