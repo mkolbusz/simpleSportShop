@@ -36,4 +36,12 @@ export class Order {
     setStatus(status: OrderStatus) {
         this.status = status;
     }
+
+    getStatus(): OrderStatus {
+        return this.status;
+    }
+
+    getTotal(): number {
+        return this.products.reduce((prev, current) => prev + current.getTotalPrice(), 0);
+    }
 }

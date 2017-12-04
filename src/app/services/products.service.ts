@@ -2,11 +2,11 @@ import { AppSettings } from './../app-settings';
 import { Product } from './../models/product';
 import { Observable } from 'rxjs/Observable';
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
 import { of } from 'rxjs/observable/of';
 import 'rxjs/add/operator/map';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { NotificationsService } from 'angular2-notifications';
+import { CustomHttp } from '../helpers/custom-http';
 
 @Injectable()
 export class ProductsService {
@@ -14,12 +14,13 @@ export class ProductsService {
   private products = new BehaviorSubject<Product[]>([]);
   public productsState = this.products.asObservable();
 
-  constructor(private http: HttpClient, private notifyService: NotificationsService) {
+  constructor(private http: CustomHttp, private notifyService: NotificationsService) {
     this.loadProducts();
   }
 
   loadProducts(): void {
-    this.http.get<any[]>(AppSettings.API_URL + '/products').subscribe(products => {
+    this.http.get('/products').map(response => response.json()).subscribe(products => {
+      console.log(products);
       const productsCreated = Object.keys(products).map(key => {
         const p = products[key];
         return new Product(p._id, p.name, p.description, p.qty, p.price, p.images, p.category);
@@ -39,11 +40,11 @@ export class ProductsService {
   }
 
   saveNewProduct(product: Product) {
-    return this.http.put(AppSettings.API_URL + '/products/new', product);
+    return this.http.put('/products/new', product);
   }
 
   removeUploadedPhoto(image) {
-    return this.http.delete(AppSettings.API_URL + '/products/image/' + image);
+    return this.http.delete('/products/image/' + image);
   }
 
   applyPromotion(promotion) {
@@ -65,5 +66,9 @@ export class ProductsService {
 
     this.products.next(this.products.getValue());
     this.notifyService.info('Promocja', 'Promocja zakończyła się');
+  }
+
+  refreshProducts() {
+    this.loadProducts();
   }
 }

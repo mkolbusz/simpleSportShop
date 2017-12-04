@@ -16,7 +16,7 @@ export class Product {
     }
 
     static fromJsonObject(obj: any): Product {
-        return new Product(obj.id, obj.name, obj.description, obj.number, obj.price, obj.images, obj.category);
+        return new Product(obj._id, obj.name, obj.description, obj.number, obj.price, obj.images, obj.category);
     }
 
     isAvailable(): Boolean {

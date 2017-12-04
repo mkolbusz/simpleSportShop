@@ -36,6 +36,7 @@ export class NewProductComponent implements OnInit {
     this.productsService.saveNewProduct(this.product).subscribe(
       res => {
         this.product = new Product(null, '', '', 0, 0, [], '');
+        this.pathToFiles = [];
         this.notificationService.success('Dodawanie produktu', 'Produkt został dodany pomyślnie');
       },
       err => {
@@ -44,6 +45,7 @@ export class NewProductComponent implements OnInit {
   }
 
   onUploadFinished(file: FileHolder) {
+    console.log(file);
     const image = JSON.parse(file.serverResponse['_body']);
     this.product.images.push(image.filename);
   }
@@ -54,6 +56,7 @@ export class NewProductComponent implements OnInit {
   }
 
   onRemoved(file: FileHolder) {
+    console.log(file);
     const image = JSON.parse(file.serverResponse['_body']);
     const index = this.product.images.findIndex(img => img === image.filename);
     this.product.images.splice(index, 1);

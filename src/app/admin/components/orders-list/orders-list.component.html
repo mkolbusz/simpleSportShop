@@ -1,4 +1,4 @@
-<h2>Lista zamówień</h2>
+<h2>Lista zamówień oczekujących</h2>
 
 <clr-datagrid>
     <clr-dg-column [clrDgField]="'id'">Id</clr-dg-column>
@@ -6,14 +6,16 @@
     <clr-dg-column [clrDgField]="'client.lastname'">Nazwisko</clr-dg-column>
     <clr-dg-column [clrDgField]="'order.products.length'">Ilość produktów</clr-dg-column>
     <clr-dg-column [clrDgField]="'order.status'">Status</clr-dg-column>
+    <clr-dg-column [clrDgField]="'order.status'">Wartość</clr-dg-column>
     <clr-dg-column>Menu</clr-dg-column>
 
-    <clr-dg-row *clrDgItems="let order of orders" [clrDgItem]>
+    <clr-dg-row *clrDgItems="let order of waitingOrders" [clrDgItem]>
         <clr-dg-cell>{{order.id}}</clr-dg-cell>
         <clr-dg-cell>{{order.client.firstname}}</clr-dg-cell>
         <clr-dg-cell>{{order.client.lastname}}</clr-dg-cell>
         <clr-dg-cell>{{order.products.length}}</clr-dg-cell>
         <clr-dg-cell>{{getStatusText(order.status)}}</clr-dg-cell>
+        <clr-dg-cell>{{order.getTotal() | currency:'EUR':true:'1.2-2' }}</clr-dg-cell>
         <clr-dg-cell>
             <div class="btn-group btn-primary">
                 <button type="button" class="btn btn-icon btn-sm" (click)="confirmOrder(order)">
@@ -50,5 +52,92 @@
         </clr-dg-row-detail>
       </clr-dg-row>
 
-    <clr-dg-footer>{{orders.length}} zamówień, <clr-dg-pagination #pagination [clrDgPageSize]="10"></clr-dg-pagination></clr-dg-footer>
+    <clr-dg-footer>{{waitingOrders.length}} zamówień, <clr-dg-pagination #pagination [clrDgPageSize]="10"></clr-dg-pagination></clr-dg-footer>
+</clr-datagrid>
+
+<h2>Lista zamówień przyjętych</h2>
+<clr-datagrid>
+    <clr-dg-column [clrDgField]="'id'">Id</clr-dg-column>
+    <clr-dg-column [clrDgField]="'client.firstname'">Imię</clr-dg-column>
+    <clr-dg-column [clrDgField]="'client.lastname'">Nazwisko</clr-dg-column>
+    <clr-dg-column [clrDgField]="'order.products.length'">Ilość produktów</clr-dg-column>
+    <clr-dg-column [clrDgField]="'order.status'">Status</clr-dg-column>
+    <clr-dg-column [clrDgField]="'order.status'">Wartość</clr-dg-column>
+
+    <clr-dg-row *clrDgItems="let order of confirmedOrders" [clrDgItem]>
+        <clr-dg-cell>{{order.id}}</clr-dg-cell>
+        <clr-dg-cell>{{order.client.firstname}}</clr-dg-cell>
+        <clr-dg-cell>{{order.client.lastname}}</clr-dg-cell>
+        <clr-dg-cell>{{order.products.length}}</clr-dg-cell>
+        <clr-dg-cell>{{getStatusText(order.status)}}</clr-dg-cell>
+        <clr-dg-cell>{{order.getTotal() | currency:'EUR':true:'1.2-2' }}</clr-dg-cell>
+        
+        <clr-dg-row-detail *clrIfExpanded>
+                <table class="table">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Nazwa produktu</th>
+                                <th>Ilość</th>
+                                <th>Cena jednostkowa</th>
+                                <th>Wartość</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let p of order.products">
+                                <td>{{p.product.id}}</td>
+                                <td>{{p.product.name}}</td>
+                                <td>{{p.qty}}</td>
+                                <td>{{p.product.price | currency:'EUR':true:'1.2-2'}}</td>
+                                <td>{{p.qty * p.product.price | currency:'EUR':true:'1.2-2'}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+        </clr-dg-row-detail>
+        </clr-dg-row>
+
+    <clr-dg-footer>{{confirmedOrders.length}} zamówień, <clr-dg-pagination #pagination [clrDgPageSize]="10"></clr-dg-pagination></clr-dg-footer>
+</clr-datagrid>
+
+<h2>Lista zamówień anulowanych</h2>
+<clr-datagrid>
+    <clr-dg-column [clrDgField]="'id'">Id</clr-dg-column>
+    <clr-dg-column [clrDgField]="'client.firstname'">Imię</clr-dg-column>
+    <clr-dg-column [clrDgField]="'client.lastname'">Nazwisko</clr-dg-column>
+    <clr-dg-column [clrDgField]="'order.products.length'">Ilość produktów</clr-dg-column>
+    <clr-dg-column [clrDgField]="'order.status'">Status</clr-dg-column>
+    <clr-dg-column [clrDgField]="'order.status'">Wartość</clr-dg-column>
+
+    <clr-dg-row *clrDgItems="let order of canceledOrders" [clrDgItem]>
+        <clr-dg-cell>{{order.id}}</clr-dg-cell>
+        <clr-dg-cell>{{order.client.firstname}}</clr-dg-cell>
+        <clr-dg-cell>{{order.client.lastname}}</clr-dg-cell>
+        <clr-dg-cell>{{order.products.length}}</clr-dg-cell>
+        <clr-dg-cell>{{getStatusText(order.status)}}</clr-dg-cell>
+        <clr-dg-cell>{{order.getTotal() | currency:'EUR':true:'1.2-2' }}</clr-dg-cell>
+        <clr-dg-row-detail *clrIfExpanded>
+                <table class="table">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Nazwa produktu</th>
+                                <th>Ilość</th>
+                                <th>Cena jednostkowa</th>
+                                <th>Wartość</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let p of order.products">
+                                <td>{{p.product.id}}</td>
+                                <td>{{p.product.name}}</td>
+                                <td>{{p.qty}}</td>
+                                <td>{{p.product.price | currency:'EUR':true:'1.2-2'}}</td>
+                                <td>{{p.qty * p.product.price | currency:'EUR':true:'1.2-2'}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+        </clr-dg-row-detail>
+        </clr-dg-row>
+
+    <clr-dg-footer>{{canceledOrders.length}} zamówień, <clr-dg-pagination #pagination [clrDgPageSize]="10"></clr-dg-pagination></clr-dg-footer>
 </clr-datagrid>

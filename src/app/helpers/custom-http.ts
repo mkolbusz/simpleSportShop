@@ -16,11 +16,11 @@ export class CustomHttp extends Http {
         return super.get(AppSettings.API_URL + url, this.addJwt(options)).catch(this.handleError);
     }
 
-    post(url: string, body: string, options?: RequestOptionsArgs): Observable<Response> {
+    post(url: string, body: any, options?: RequestOptionsArgs): Observable<Response> {
         return super.post(AppSettings.API_URL + url, body, this.addJwt(options)).catch(this.handleError);
     }
 
-    put(url: string, body: string, options?: RequestOptionsArgs): Observable<Response> {
+    put(url: string, body: any, options?: RequestOptionsArgs): Observable<Response> {
         return super.put(AppSettings.API_URL + url, body, this.addJwt(options)).catch(this.handleError);
     }
 
@@ -57,7 +57,7 @@ export function customHttpFactory(xhrBackend: XHRBackend, requestOptions: Reques
 }
 
 export let customHttpProvider = {
-    provide: Http,
+    provide: CustomHttp,
     useFactory: customHttpFactory,
     deps: [XHRBackend, RequestOptions]
 };

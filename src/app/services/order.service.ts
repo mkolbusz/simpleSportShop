@@ -2,9 +2,10 @@ import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { Client } from './../models/client';
 import { Order } from './../models/order';
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
 import { AppSettings } from '../app-settings';
 import { CartService } from './cart.service';
+import { NotificationsService } from 'angular2-notifications';
+import { CustomHttp } from '../helpers/custom-http';
 
 @Injectable()
 export class OrderService {
@@ -13,7 +14,7 @@ export class OrderService {
 
   order: Order;
 
-  constructor(private http: HttpClient) {
+  constructor(private http: CustomHttp, private notifyService: NotificationsService) {
     this.order = new Order(null, [], new Client('', '', '', '', '', '', ''));
     this.orderSource.next(this.order);
   }
@@ -29,9 +30,9 @@ export class OrderService {
   }
 
   saveOrder() {
-    this.http.put(AppSettings.API_URL + '/order/new', this.order).subscribe(
+    this.http.put('/order/new', this.order).subscribe(
       res => {
-        console.log(res);
+        this.notifyService.success('Zamówienie', 'Zamówienie złożone pomyślnie');
       },
       err => {
         console.log('Error occured');

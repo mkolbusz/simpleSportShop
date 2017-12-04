@@ -9,13 +9,19 @@ import { Order, OrderStatus } from '../../../models/order';
 })
 export class OrdersListComponent implements OnInit {
 
-  orders: Order[];
+  canceledOrders: Order[];
+  waitingOrders: Order[];
+  confirmedOrders: Order[];
 
   constructor(private ordersService: OrdersService) {
   }
 
   ngOnInit() {
-    this.ordersService.ordersState.subscribe(orders => this.orders = orders);
+    this.ordersService.ordersState.subscribe(orders => {
+      this.confirmedOrders = orders.filter(order => order.getStatus() === OrderStatus.CONFIRMED);
+      this.waitingOrders = orders.filter(order => order.getStatus() === OrderStatus.WAITING_FOR_ACTIVATION);
+      this.canceledOrders = orders.filter(order => order.getStatus() === OrderStatus.CANCELED);
+    });
   }
 
   cancelOrder(order: Order) {

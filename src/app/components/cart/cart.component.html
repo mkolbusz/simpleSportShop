@@ -7,7 +7,7 @@
     <clr-dg-column>Menu</clr-dg-column>
 
     <clr-dg-row *ngFor="let cartProduct of products">
-        <clr-dg-cell>{{cartProduct.id}}</clr-dg-cell>
+        <clr-dg-cell>{{cartProduct.product.id}}</clr-dg-cell>
         <clr-dg-cell>{{cartProduct.getName()}}</clr-dg-cell>
         <clr-dg-cell>
             {{cartProduct.getQty()}}

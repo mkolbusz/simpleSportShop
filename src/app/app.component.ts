@@ -33,6 +33,12 @@ export class AppComponent implements OnInit {
     this.socket.on('end-promotion', (data) => {
       this.productsService.endPromotion(data);
     });
+    this.socket.on('new-order', (data) => {
+      this.productsService.refreshProducts();
+    });
+    this.socket.on('new-product', (product) => {
+      this.productsService.refreshProducts();
+    });
   }
 
   search(event: any) {
