@@ -3,6 +3,18 @@
         <img [src]="product.getImageUrl(product.images[0])" [alt]="product.name">
     </div>
     <div class="card-block">
+        <div class="alert alert-success" *ngIf="product.isPromoted">
+            <div class="alert-items">
+                <div class="alert-item static">
+                    <div class="alert-icon-wrapper">
+                        <clr-icon class="alert-icon" shape="check-exclamation"></clr-icon>
+                    </div>
+                    <span class="alert-text">
+                        <strong>PROMOCJA</strong>
+                    </span>
+                </div>
+            </div>
+        </div>
         <div class="card-title">
             {{ product.name | uppercase }}
         </div>

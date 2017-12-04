@@ -1,6 +1,8 @@
 import { AppSettings } from '../app-settings';
 export class Product {
 
+    public isPromoted: boolean;
+
     constructor(
         public id: string,
         public name: string,
@@ -10,6 +12,7 @@ export class Product {
         public images: string[],
         public category: string,
     ) {
+        this.isPromoted = false;
     }
 
     static fromJsonObject(obj: any): Product {

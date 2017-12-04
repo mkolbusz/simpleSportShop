@@ -36,7 +36,6 @@ export class LoginComponent implements OnInit {
     this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
     this.socialAuthService.authState.subscribe((user) => {
       console.log(user);
-      this.authService.loginByGoogle(user);
     });
   }
 

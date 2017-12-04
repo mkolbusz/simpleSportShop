@@ -46,11 +46,11 @@ export class ProductsService {
     return this.http.delete(AppSettings.API_URL + '/products/image/' + image);
   }
 
-
   applyPromotion(promotion) {
     promotion.products.map(product => {
-      const pr = this.products.getValue().find(p => p.id === product._id);
+      const pr = this.products.getValue().find(p => p.id === product.id);
       pr.price = pr.price - pr.price * (promotion.discount / 100.00);
+      pr.isPromoted = true;
     });
     this.products.next(this.products.getValue());
     this.notifyService.info('Promocja', 'Pojawiły się nowe promocje');
@@ -58,12 +58,12 @@ export class ProductsService {
 
   endPromotion(promotion) {
     promotion.products.map(product => {
-      const pr = this.products.getValue().find(p => p.id === product._id);
+      const pr = this.products.getValue().find(p => p.id === product.id);
       pr.price = product.price;
+      pr.isPromoted = false;
     });
 
     this.products.next(this.products.getValue());
     this.notifyService.info('Promocja', 'Promocja zakończyła się');
   }
-
 }

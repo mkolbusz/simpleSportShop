@@ -1,7 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Product } from '../../../models/product';
-import { HttpClient } from '@angular/common/http';
 import { AppSettings } from '../../../app-settings';
+import { Http } from '@angular/http';
 
 @Component({
   selector: 'promotion-modal',
@@ -16,7 +16,7 @@ export class PromotionModalComponent implements OnInit {
   time: number;
 
 
-  constructor(private http: HttpClient) {
+  constructor(private http: Http) {
     this.isOpen = false;
     this.discount = 0;
     this.time = 0;
@@ -32,14 +32,14 @@ export class PromotionModalComponent implements OnInit {
       discount: this.discount
     };
 
-    this.http.put(AppSettings.API_URL + '/promotions/new', promotion).subscribe(
+    this.http.put('/promotions/new', promotion).subscribe(
       res => {
         console.log(res);
       },
       err => {
         console.log(err);
       }
-    )
+    );
   }
 
 }

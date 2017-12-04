@@ -34,6 +34,7 @@ import { FilterService } from './services/filter.service';
 import { PriceRangeComponent } from './components/price-range/price-range.component';
 import { PriceRangePipe } from './pipes/price-range.pipe';
 import { AppSettings } from './app-settings';
+import { customHttpProvider } from './helpers/custom-http';
 
 
 const CONFIG = new AuthServiceConfig([
@@ -90,7 +91,7 @@ export function provideConfig() {
     NgxGalleryModule
   ],
   providers: [
-    ProductsService, CategoriesService, CartService, OrderService, FilterService,
+    ProductsService, CategoriesService, CartService, OrderService, FilterService, customHttpProvider,
     { provide: AuthServiceConfig, useFactory: provideConfig }
   ],
   bootstrap: [AppComponent]
