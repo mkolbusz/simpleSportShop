@@ -2,30 +2,30 @@ import { AppSettings } from '../app-settings';
 export class Product {
 
     constructor(
-        public _id: string,
+        public id: string,
         public name: string,
         public description: string,
         public qty: number,
         public price: number,
-        public image: string,
-        public category: string
+        public images: string[],
+        public category: string,
     ) {
     }
 
     static fromJsonObject(obj: any): Product {
-        return new Product(obj.id, obj.name, obj.description, obj.number, obj.price, obj.image, obj.category);
+        return new Product(obj.id, obj.name, obj.description, obj.number, obj.price, obj.images, obj.category);
     }
 
     isAvailable(): Boolean {
         return this.qty > 0;
     }
 
-    getImageUrl() {
-        return AppSettings.DB_API_ENDPOINT + '/assets/images/products/' + this._id + '/' + this.image;
+    getImageUrl(image) {
+        return AppSettings.API_URL + '/assets/images/products/' + this.id + '/' + image;
     }
 
     public getId(): string {
-        return this._id;
+        return this.id;
     }
 
     getPrice() {

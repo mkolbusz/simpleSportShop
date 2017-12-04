@@ -29,7 +29,7 @@ export class OrderService {
   }
 
   saveOrder() {
-    this.http.put(AppSettings.DB_API_ENDPOINT + '/order/new', this.order).subscribe(
+    this.http.put(AppSettings.API_URL + '/order/new', this.order).subscribe(
       res => {
         console.log(res);
       },

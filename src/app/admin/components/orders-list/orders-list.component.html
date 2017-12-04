@@ -42,8 +42,8 @@
                                 <td>{{p.product.id}}</td>
                                 <td>{{p.product.name}}</td>
                                 <td>{{p.qty}}</td>
-                                <td>{{p.product.price | currency}}</td>
-                                <td>{{p.qty * p.product.price | currency}}</td>
+                                <td>{{p.product.price | currency:'EUR':true:'1.2-2'}}</td>
+                                <td>{{p.qty * p.product.price | currency:'EUR':true:'1.2-2'}}</td>
                             </tr>
                         </tbody>
                     </table>

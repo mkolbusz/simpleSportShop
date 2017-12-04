@@ -23,7 +23,7 @@ export class NewProductComponent implements OnInit {
     private productsService: ProductsService,
     private categoriesService: CategoriesService,
     private notificationService: NotificationsService) {
-      this.product = new Product(null, '', '', 0, 0, '', '');
+      this.product = new Product(null, '', '', 0, 0, [], '');
       categoriesService.categoriesState.subscribe(categories => {
         this.categories = categories;
       });
@@ -35,6 +35,7 @@ export class NewProductComponent implements OnInit {
   saveProduct() {
     this.productsService.saveNewProduct(this.product).subscribe(
       res => {
+        this.product = new Product(null, '', '', 0, 0, [], '');
         this.notificationService.success('Dodawanie produktu', 'Produkt został dodany pomyślnie');
       },
       err => {
@@ -44,12 +45,26 @@ export class NewProductComponent implements OnInit {
 
   onUploadFinished(file: FileHolder) {
     const image = JSON.parse(file.serverResponse['_body']);
-    this.product.image = image.filename;
+    this.product.images.push(image.filename);
   }
 
   handleNewCategory() {
     this.categories.push(new Category(this.product.category));
     this.isNewCategoryModalOpen = false;
+  }
+
+  onRemoved(file: FileHolder) {
+    const image = JSON.parse(file.serverResponse['_body']);
+    const index = this.product.images.findIndex(img => img === image.filename);
+    this.product.images.splice(index, 1);
+    this.productsService.removeUploadedPhoto(image.filename).subscribe(
+      res => {
+        console.log(res);
+      },
+      err => {
+        console.log(err);
+      }
+    );
   }
 
 }

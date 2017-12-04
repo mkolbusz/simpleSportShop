@@ -19,8 +19,8 @@
           <tr *ngFor="let product of products">
               <td>{{ product.id }}</td>
               <td>{{ product.name }}</td>
-              <td>{{ product.price | currency }}</td>
-              <td>{{ product.price - product.price * (discount/100.0) | currency }}</td>
+              <td>{{ product.price | currency:'EUR':true:'1.2-2' }}</td>
+              <td>{{ product.price - product.price * (discount/100.0) | currency:'EUR':true:'1.2-2' }}</td>
           </tr>
       </tbody>
     </table>

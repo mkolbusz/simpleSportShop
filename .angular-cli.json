@@ -19,6 +19,7 @@
       "testTsconfig": "tsconfig.spec.json",
       "prefix": "app",
       "styles": [
+        "../node_modules/font-awesome/css/font-awesome.css",
         "../node_modules/clarity-icons/clarity-icons.min.css",        
         "../node_modules/clarity-ui/clarity-ui.min.css",
         "styles.scss"

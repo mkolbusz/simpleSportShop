@@ -14,6 +14,7 @@ export class ProductListItemComponent implements OnInit {
   qty: number;
   @Input() product: Product;
   @Output() qtyChange = new EventEmitter<number>();
+  @Output() openDetailsModal = new EventEmitter<Product>();
 
   isDescriptionVisible: boolean;
 
@@ -30,23 +31,20 @@ export class ProductListItemComponent implements OnInit {
   }
 
   increaseQty() {
-    if (this.product.qty > 0) {
+    if (this.qty < this.product.qty) {
       this.qty++;
-      this.product.qty--;
-      this.qtyChange.emit(1);
     }
   }
 
   decreaseQty() {
     if (this.qty > 0) {
       this.qty--;
-      this.product.qty++;
-      this.qtyChange.emit(-1);
     }
   }
 
   addToCart() {
     this.cartService.addToCart(this.product, this.qty);
+    this.qtyChange.emit(this.qty);
     this.qty = 0;
   }
 }

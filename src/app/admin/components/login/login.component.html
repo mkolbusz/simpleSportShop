@@ -25,7 +25,9 @@
         </div>
         <button class="btn btn-primary" type="submit"
             [disabled]="loginForm.form.invalid">Login</button>
+            <span class="spinner spinner-inline" *ngIf="loading">Trying to log in...</span>
+            
     </section>
 </form>
 
-<img src="https://i.stack.imgur.com/XzoRm.png" alt="" (click)="signInWithGoogle()"> Login with Google
+<img src="https://i.stack.imgur.com/XzoRm.png" alt="" (click)="signInWithGoogle()" width="300">

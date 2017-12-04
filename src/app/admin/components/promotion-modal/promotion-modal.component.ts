@@ -32,7 +32,7 @@ export class PromotionModalComponent implements OnInit {
       discount: this.discount
     };
 
-    this.http.put(AppSettings.DB_API_ENDPOINT + '/promotions/new', promotion).subscribe(
+    this.http.put(AppSettings.API_URL + '/promotions/new', promotion).subscribe(
       res => {
         console.log(res);
       },

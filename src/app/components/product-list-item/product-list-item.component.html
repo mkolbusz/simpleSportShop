@@ -1,6 +1,6 @@
-<a class="card clickable" [class.text-secondary]="!product.isAvailable()">
+<div class="card" [class.text-secondary]="!product.isAvailable()">
     <div class="card-img">
-        <img [src]="product.getImageUrl()" [alt]="product.name">
+        <img [src]="product.getImageUrl(product.images[0])" [alt]="product.name">
     </div>
     <div class="card-block">
         <div class="card-title">
@@ -9,18 +9,20 @@
         <div class="card-text">
             <p class="card-text" *ngIf="!isDescriptionVisible">{{ product.description | truncate:20}}&nbsp;<span class="pointer"  (click)="toggleDescription()">[read more]</span></p>
             <p class="card-text" *ngIf="isDescriptionVisible">{{ product.description }}&nbsp;<span class="pointer" (click)="toggleDescription()">[hide]</span></p>
-            <p class="text-right font-weight-bold">Price: {{ product.price | currency:'EUR':true:'1.2-2' }}</p>
+            <p class="text-right font-weight-bold">Price: {{ product.price | currency:'EUR':true:'1.2-2':'EUR':true:'1.2-2' }}</p>
             <div class="input-group" *ngIf="product.isAvailable()">
-                <span class="input-group-addon qty">Qty: {{qty}}</span>
-    
-                <span class="input-group-addon" [class.good]="product.qty >= 10" [class.bad]="product.qty < 10" >of&nbsp;{{product.qty}}</span>
+                <span class="input-group-addon qty">Qty: {{qty}} of&nbsp;{{product.qty}}</span>
                 <span class="input-group-btn">
-                    <button class="btn btn-icon btn-primary btn-plus" type="button" (click)="increaseQty()" *ngIf="product.qty > 0"><clr-icon shape="plus-circle"></clr-icon></button>
+                    <button class="btn btn-icon btn-primary btn-plus" type="button" (click)="increaseQty()" *ngIf="qty <product.qty"><clr-icon shape="plus-circle"></clr-icon></button>
                     <button class="btn btn-icon btn-primary btn-minus" type="button" (click)="decreaseQty()" *ngIf="qty > 0"><clr-icon shape="minus"></clr-icon></button>
                 </span>
             </div>
             <div class="btn-add-to-cart">
-                <button class="btn btn-primary" type="button" (click)="addToCart()" *ngIf="product.isAvailable() && qty > 0"><i class="fa fa-cart-plus" aria-hidden="true"></i>&nbsp;Add to cart</button>
+                <div class="tooltip tooltip-top-left">
+                    <button class="btn btn-primary" type="button" (click)="addToCart()" [disabled]="!(product.isAvailable() && qty > 0)"><i class="fa fa-cart-plus" aria-hidden="true"></i>&nbsp;Add to cart
+                    </button>
+                    <span class="tooltip-content" *ngIf="qty == 0">Wybierz ilość produktu aby dodać go do koszyka</span>
+                </div>
             </div>
             
             <div *ngIf="!product.isAvailable()">
@@ -29,7 +31,6 @@
         </div>
     </div>
     <div class="card-footer">
-        <button class="btn btn-sm btn-link">Footer Action 1</button>
-        <button class="btn btn-sm btn-link">Footer Action 2</button>
+        <a [routerLink]="['/products/', product.id]">Zobacz szczegóły</a>
     </div>
-</a>
+</div>

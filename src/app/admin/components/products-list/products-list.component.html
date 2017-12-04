@@ -14,7 +14,7 @@
         <clr-dg-cell>{{product._id}}</clr-dg-cell>
         <clr-dg-cell>{{product.name}}</clr-dg-cell>
         <clr-dg-cell>{{product.qty}}</clr-dg-cell>
-        <clr-dg-cell>{{product.price | currency}}</clr-dg-cell>
+        <clr-dg-cell>{{product.price | currency:'EUR':true:'1.2-2'}}</clr-dg-cell>
         <clr-dg-cell>
             <button type="button" class="btn btn-icon btn-primary btn-sm" (click)="editProduct(product)">
                 <clr-icon shape="pencil"></clr-icon>

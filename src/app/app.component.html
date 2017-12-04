@@ -12,7 +12,7 @@
     <div class="header-actions">
         <form class="search">
             <label for="search_input">
-                <input id="search_input" type="text" placeholder="Search for keywords...">
+                <input id="search_input" (keyup)="search($event)" type="text" placeholder="Search for keywords...">
             </label>
         </form>
         <clr-dropdown>

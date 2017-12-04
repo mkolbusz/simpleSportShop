@@ -19,7 +19,7 @@ export class OrdersService {
   }
 
   loadOrders() {
-    this.http.get(AppSettings.DB_API_ENDPOINT + '/orders').subscribe((orders: any[]) => {
+    this.http.get(AppSettings.API_URL + '/orders').subscribe((orders: any[]) => {
       const createdOrders = orders.map(order => {
         const products = order.products.map(p => new CartProduct(Product.fromJsonObject(p.product), p.qty));
         const client = Client.fromJsonObject(order.client);
@@ -30,7 +30,7 @@ export class OrdersService {
   }
 
   updateOrderStatus(order: Order) {
-    this.http.put(AppSettings.DB_API_ENDPOINT + '/order/' + order.getId() + '/status', order).subscribe(
+    this.http.put(AppSettings.API_URL + '/order/' + order.getId() + '/status', order).subscribe(
       res => {
         this.notifyService.info('Produkt', 'Zmieniono status produktu');
       }

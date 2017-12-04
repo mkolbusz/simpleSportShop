@@ -13,18 +13,18 @@
             {{cartProduct.getQty()}}
            
         </clr-dg-cell>
-        <clr-dg-cell>{{cartProduct.getPrice() | currency}}</clr-dg-cell>
-        <clr-dg-cell>{{cartProduct.getTotalPrice() | currency }}</clr-dg-cell>
+        <clr-dg-cell>{{cartProduct.getPrice() | currency:'EUR':true:'1.2-2'}}</clr-dg-cell>
+        <clr-dg-cell>{{cartProduct.getTotalPrice() | currency:'EUR':true:'1.2-2' }}</clr-dg-cell>
         <clr-dg-cell>
             <button type="button" class="btn btn-icon btn-danger btn-sm" (click)="removeProduct(cartProduct)">
                 <clr-icon shape="trash"></clr-icon>
                 <span class="clr-icon-title">Usuń</span>
             </button>
             <div class="btn-group btn-primary btn-icon btn-sm">
-                <button class="btn" (click)="changeQty(cartProduct, -1)" *ngIf="cartProduct.qty > 0">
+                <button class="btn" (click)="changeQty(cartProduct, -1)" *ngIf="cartProduct.qty > 1">
                     <clr-icon shape="minus"></clr-icon>
                 </button>
-                <button class="btn" (click)="changeQty(cartProduct, 1)" *ngIf="cartProduct.qty < cartProduct.product.qty">
+                <button class="btn" (click)="changeQty(cartProduct, 1)" *ngIf="cartProduct.product.qty > 0">
                     <clr-icon shape="plus"></clr-icon>
                 </button>
             </div>
@@ -36,11 +36,11 @@
         <clr-dg-cell></clr-dg-cell>
         <clr-dg-cell></clr-dg-cell>
         <clr-dg-cell></clr-dg-cell>
-        <clr-dg-cell><strong>Do zapłaty: {{ getTotal() | currency }}</strong></clr-dg-cell>
+        <clr-dg-cell><strong>Do zapłaty: {{ getTotal() | currency:'EUR':true:'1.2-2' }}</strong></clr-dg-cell>
         <clr-dg-cell></clr-dg-cell>
     </clr-dg-row>
 
-    <clr-dg-footer>{{products.length}} products, <strong>Do zapłaty: {{ getTotal() | currency }}</strong></clr-dg-footer>
+    <clr-dg-footer>{{products.length}} products, <strong>Do zapłaty: {{ getTotal() | currency:'EUR':true:'1.2-2' }}</strong></clr-dg-footer>
 </clr-datagrid>
 
 

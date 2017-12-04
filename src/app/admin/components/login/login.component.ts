@@ -7,6 +7,7 @@ import {
   GoogleLoginProvider,
   LinkedinLoginProvider
 } from 'ng4-social-login';
+import { NotificationsService } from 'angular2-notifications';
 
 @Component({
   selector: 'login',
@@ -18,26 +19,38 @@ export class LoginComponent implements OnInit {
   email: string;
   password: string;
   returnUrl: string;
+  loading: boolean;
 
   constructor(
     private authService: AuthService,
     private socialAuthService: SocialAuthService,
     private route: ActivatedRoute,
-    private router: Router) { }
+    private router: Router,
+    private notifyService: NotificationsService
+  ) {
+    this.loading = false;
+   }
 
   ngOnInit() {
-    this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/admin/products';
+    this.authService.logout();
+    this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
     this.socialAuthService.authState.subscribe((user) => {
       console.log(user);
-
-      // this.authService.login(this.email, this.password);
+      this.authService.loginByGoogle(user);
     });
   }
 
   onSubmit() {
-    this.authService.login(this.email, this.password);
-    console.log(this.returnUrl);
-    this.router.navigate([this.returnUrl]);
+    this.loading = true;
+    this.authService.login(this.email, this.password).subscribe(
+      res => {
+        this.router.navigate([this.returnUrl]);
+      },
+      err => {
+        this.loading = false;
+        this.notifyService.error('Logowanie', 'Błąb podczas logowania. Sprawdź swoje dane.');
+      }
+    );
   }
 
   signInWithGoogle(): void {

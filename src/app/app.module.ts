@@ -5,6 +5,7 @@ import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { CustomFormsModule } from 'ng4-validators';
+import { NgxGalleryModule } from 'ngx-gallery';
 
 import { AppComponent } from './app.component';
 import { ProductsListComponent } from './components/products-list/products-list.component';
@@ -27,6 +28,11 @@ import { environment } from './../environments/environment';
 import { routing } from './app.routers';
 import { CheckoutComponent } from './components/checkout/checkout.component';
 import { OrderService } from './services/order.service';
+import { ProductDetailsComponent } from './components/product-details/product-details.component';
+import { SearchPropertyPipe } from './pipes/search-property.pipe';
+import { FilterService } from './services/filter.service';
+import { PriceRangeComponent } from './components/price-range/price-range.component';
+import { PriceRangePipe } from './pipes/price-range.pipe';
 
 
 const CONFIG = new AuthServiceConfig([
@@ -61,7 +67,11 @@ export function provideConfig() {
     FilterByCategoryPipe,
     CartWidgetComponent,
     CartComponent,
-    CheckoutComponent
+    CheckoutComponent,
+    ProductDetailsComponent,
+    SearchPropertyPipe,
+    PriceRangeComponent,
+    PriceRangePipe
   ],
   imports: [
     BrowserModule,
@@ -75,10 +85,11 @@ export function provideConfig() {
     CustomFormsModule,
     SimpleNotificationsModule.forRoot(),
     SocialLoginModule,
-    SocketIoModule.forRoot(socketConfig)
+    SocketIoModule.forRoot(socketConfig),
+    NgxGalleryModule
   ],
   providers: [
-    ProductsService, CategoriesService, CartService, OrderService,
+    ProductsService, CategoriesService, CartService, OrderService, FilterService,
     { provide: AuthServiceConfig, useFactory: provideConfig }
   ],
   bootstrap: [AppComponent]

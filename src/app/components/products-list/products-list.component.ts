@@ -4,6 +4,7 @@ import { ProductsService } from '../../services/products.service';
 import { CategoriesService } from '../../services/categories.service';
 import { Category } from '../../models/category';
 import { Socket } from 'ng-socket-io';
+import { FilterService } from '../../services/filter.service';
 
 
 @Component({
@@ -20,7 +21,8 @@ export class ProductsListComponent implements OnInit {
   constructor(
     private productsService: ProductsService,
     public categoriesService: CategoriesService,
-    private socket: Socket
+    private socket: Socket,
+    public filterService: FilterService
   ) {
     this.page = 1;
     this.numberOfProducts = 0;
@@ -32,8 +34,6 @@ export class ProductsListComponent implements OnInit {
       this.products = products;
       this.numberOfProducts = this.products.length;
     });
-    
-
   }
 
   qtyChange(qty: number) {
@@ -41,3 +41,4 @@ export class ProductsListComponent implements OnInit {
   }
 
 }
+

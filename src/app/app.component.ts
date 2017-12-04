@@ -3,6 +3,7 @@ import { AuthService } from './admin/services/auth.service';
 import { Socket } from 'ng-socket-io';
 import { ProductsService } from './services/products.service';
 import { NotificationsService } from 'angular2-notifications';
+import { FilterService } from './services/filter.service';
 
 @Component({
   selector: 'app-root',
@@ -21,6 +22,7 @@ export class AppComponent implements OnInit {
     private authService: AuthService,
     private socket: Socket,
     private productsService: ProductsService,
+    private searchService: FilterService
   ) {
   }
 
@@ -29,8 +31,12 @@ export class AppComponent implements OnInit {
       this.productsService.applyPromotion(data);
     });
     this.socket.on('end-promotion', (data) => {
-      console.log(data);
+      this.productsService.endPromotion(data);
     });
+  }
+
+  search(event: any) {
+    this.searchService.setSearchValue(event.target.value);
   }
 
   logout() {

@@ -67,10 +67,12 @@
                     <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
                         <image-upload
                         [max]="3"
-                        [buttonCaption]="'Select Image!'"
-                        [dropBoxMessage]="'Drop your images here!'"
+                        [buttonCaption]="'Wybierz zdjęcia!'"
+                        [dropBoxMessage]="'Przeciągnij swoje zdjęcia tutaj!'"
+                        [clearButtonCaption]="'Usuń wszystkie zdjęcia'"
                         [extensions]="['jpg','png','jpeg']"
                         (uploadFinished)="onUploadFinished($event)"
+                        (removed)="onRemoved($event)"
                         url="http://localhost:3000/products/image/upload">
                       </image-upload>
                     </div>

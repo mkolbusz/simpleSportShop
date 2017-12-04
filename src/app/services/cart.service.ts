@@ -18,10 +18,7 @@ export class CartService {
     const existedProduct = this.cart.getValue().find(p => p.getProduct() === product);
     if (!existedProduct) {
       this.cart.getValue().push(new CartProduct(product, qty));
-    } else {
-      existedProduct.qty += qty;
     }
-
     this.cart.next(this.cart.getValue());
     this.productService.changeQty(product, -qty);
   }
@@ -31,6 +28,7 @@ export class CartService {
   }
 
   clearCart(): void {
+    this.cart.getValue().map(cartProduct => this.productService.changeQty(cartProduct.product, cartProduct.qty));
     this.cart.next([]);
     this.notificationsService.info('Koszyk', 'Koszyk został wyczyszczony');
   }
@@ -44,7 +42,7 @@ export class CartService {
   changeQty(cartProduct: CartProduct, qty: number) {
     const product = this.cart.getValue().find(p => p === cartProduct);
     product.qty += qty;
-    this.productService.changeQty(cartProduct.product, qty);
+    this.productService.changeQty(cartProduct.product, -qty);
     this.cart.next(this.cart.getValue());
   }
 

@@ -1,16 +1,27 @@
 <div class="row">
-  <div class="col">
+  <div class="col-lg-8">
     <div class="jumbotron">
       <h3 class="display-3" [style.color]="numberOfProducts > 10 ? 'green' : 'red'">{{ numberOfProducts }} produktów w ofercie</h3>
       <p class="lead">Największy wybór wśród sklepów internetowych!</p>
     </div>
+  </div>
+  <div class="col-lg-4">
+    <price-range></price-range>
   </div>
 </div>
 <div class="row">
 <div class="col-lg-12">
   <pagination-controls (pageChange)="page = $event"></pagination-controls>
   <div class="row">
-    <product-list-item class="col-lg-3" *ngFor="let product of products | filterByCategory: categoriesService.getActiveCategories() | paginate: {itemsPerPage: 4, currentPage: page}" [product]="product" (qtyChange)="qtyChange($event)"></product-list-item>
+    <product-list-item class="col-lg-3" 
+      *ngFor="let product of products 
+      | filterByCategory: categoriesService.getActiveCategories()
+      | searchProperty:'name':filterService.getSearchKey()
+      | priceRange:filterService.getPriceRange()
+      | paginate: {itemsPerPage: 4, currentPage: page}" 
+      [product]="product" 
+      (qtyChange)="qtyChange($event)">
+    </product-list-item>
   </div>
   
   <pagination-controls (pageChange)="page = $event"></pagination-controls>

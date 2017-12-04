@@ -1,7 +1,7 @@
 <div class="cart-widget">
   <p *ngIf="products.length == 0">Koszyk jest pusty</p>
   <div *ngIf="products.length > 0">
-    <p>Ilość: {{ getTotalNumber() }}<br/>Do zapłaty: <strong>{{ getTotalPrice() | currency }}</strong></p>
+    <p>Ilość: {{ getTotalNumber() }}<br/>Do zapłaty: <strong>{{ getTotalPrice() | currency:'EUR':true:'1.2-2' }}</strong></p>
     <p>Ostatnio dodany: {{ getLastProduct().getName() }}</p>
   </div>
   <div class="card-body">

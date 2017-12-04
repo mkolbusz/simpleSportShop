@@ -19,13 +19,17 @@ export class ProductsService {
   }
 
   loadProducts(): void {
-    this.http.get<any[]>(AppSettings.DB_API_ENDPOINT + '/products').subscribe(products => {
+    this.http.get<any[]>(AppSettings.API_URL + '/products').subscribe(products => {
       const productsCreated = Object.keys(products).map(key => {
         const p = products[key];
-        return new Product(p._id, p.name, p.description, p.qty, p.price, p.image, p.category);
+        return new Product(p._id, p.name, p.description, p.qty, p.price, p.images, p.category);
       });
       this.products.next(productsCreated);
     });
+  }
+
+  getProductById(id: string) {
+    return this.products.getValue().find(p => p.id === id);
   }
 
   changeQty(product: Product, qty: number) {
@@ -35,12 +39,17 @@ export class ProductsService {
   }
 
   saveNewProduct(product: Product) {
-    return this.http.put(AppSettings.DB_API_ENDPOINT + 'products/new', product);
+    return this.http.put(AppSettings.API_URL + '/products/new', product);
   }
+
+  removeUploadedPhoto(image) {
+    return this.http.delete(AppSettings.API_URL + '/products/image/' + image);
+  }
+
 
   applyPromotion(promotion) {
     promotion.products.map(product => {
-      const pr = this.products.getValue().find(p => p._id === product._id);
+      const pr = this.products.getValue().find(p => p.id === product._id);
       pr.price = pr.price - pr.price * (promotion.discount / 100.00);
     });
     this.products.next(this.products.getValue());
@@ -49,7 +58,7 @@ export class ProductsService {
 
   endPromotion(promotion) {
     promotion.products.map(product => {
-      const pr = this.products.getValue().find(p => p._id === product._id);
+      const pr = this.products.getValue().find(p => p.id === product._id);
       pr.price = product.price;
     });
 

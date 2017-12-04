@@ -1,0 +1,36 @@
+<div class="row">
+  <div class="col-md-6 col-xs-12">
+    <ngx-gallery [options]="galleryOptions" [images]="galleryImages"></ngx-gallery>
+  </div>
+  <div class="col-md-6 col-xs-12">
+      <div class="card-block">
+          <div class="card-title">
+              {{ product.name | uppercase }}
+          </div>
+          <div class="card-text">
+              <p class="card-text">{{ product.description }}</p>
+              <p class="text-right font-weight-bold">Price: {{ product.price | currency:'EUR':true:'1.2-2':'EUR':true:'1.2-2' }}</p>
+              <div class="input-group">
+                  <span class="input-group-addon qty">Qty: {{qty}}</span>
+      
+                  <span class="input-group-addon">of&nbsp;{{product.qty}}</span>
+                  <span class="input-group-btn">
+                      <button class="btn btn-icon btn-primary btn-plus" type="button" (click)="increaseQty()" *ngIf="qty < product.qty"><clr-icon shape="plus-circle"></clr-icon></button>
+                      <button class="btn btn-icon btn-primary btn-minus" type="button" (click)="decreaseQty()" *ngIf="qty > 0"><clr-icon shape="minus"></clr-icon></button>
+                  </span>
+              </div>
+              <div class="btn-add-to-cart">
+                  <div class="tooltip tooltip-top-left">
+                      <button class="btn btn-primary" type="button" (click)="addToCart()" [disabled]="!(product.isAvailable() && qty > 0)"><i class="fa fa-cart-plus" aria-hidden="true"></i>&nbsp;Add to cart
+                      </button>
+                      <span class="tooltip-content">Wybierz ilość produktu aby dodać go do koszyka</span>
+                  </div>
+              </div>
+              
+              <div *ngIf="!product.isAvailable()">
+                  <p>Sold out!</p>
+              </div>
+          </div>
+      </div>
+  </div>
+</div>
