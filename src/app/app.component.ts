@@ -39,6 +39,9 @@ export class AppComponent implements OnInit {
     this.socket.on('new-product', (product) => {
       this.productsService.refreshProducts();
     });
+    this.socket.on('remove-product', (product) => {
+      this.productsService.removeProduct(product);
+    });
   }
 
   search(event: any) {

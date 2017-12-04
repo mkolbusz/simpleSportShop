@@ -1,8 +1,90 @@
-
-<h3 class="modal-title">Product edition</h3>
-<div class="modal-body">
-</div>
-<div class="modal-footer">
-    <button type="button" class="btn btn-outline" (click)="product = null">Anuluj</button>
-    <button type="button" class="btn btn-primary" (click)="product = null">Zapisz</button>
-</div>
+<h3>Dodawanie nowego produktu</h3>
+<form #newProductForm="ngForm">
+    <div class="row">
+        <div class="col-xs-12">
+            <section class="form-block">
+                <label>Dane produktu</label>
+                <div class="form-group row">
+                    <div class="col-lg-2 col-md-12 col-sm-12 col-xs-12">
+                        <label for="gForm_1">Nazwa</label>
+                    </div>
+                    <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                        <input class="form-control" name="name" [(ngModel)]="product.name" type="text" id="gForm_1" placeholder="Wpisz nazwę produktu" required>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-lg-2 col-md-12 col-sm-12 col-xs-12">
+                        <label for="gForm_1">Opis</label>
+                    </div>
+                    <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                        <textarea id="aForm_4" rows="5" name="description" [(ngModel)]="product.description"></textarea>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-lg-2 col-md-12 col-sm-12 col-xs-12">
+                        <label for="gForm_1">Dostępna ilość</label>
+                    </div>
+                    <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                        <input class="form-control" name="qty" [(ngModel)]="product.qty" type="number" id="gForm_1" placeholder="10">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-lg-2 col-md-12 col-sm-12 col-xs-12">
+                        <label for="gForm_1">Cena</label>
+                    </div>
+                    <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                        <input class="form-control" name="price" [(ngModel)]="product.price" type="text" id="gForm_1" placeholder="00-000">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-lg-2 col-md-12 col-sm-12 col-xs-12">
+                        <label for="gForm_1">Kategoria</label>
+                    </div>
+                    <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                        <div class="select" *ngIf="categories.length">
+                            <select name="category" [(ngModel)]="product.category">
+                                <option *ngFor="let category of categories" [ngValue]="category.name">{{ category.name }}</option>
+                            </select>
+                        </div>
+                        <button class="btn btn-primary" (click)="isNewCategoryModalOpen = true">Dodaj nową kategorię</button>
+                        <clr-modal [(clrModalOpen)]="isNewCategoryModalOpen">
+                            <h3 class="modal-title">Nowa kategoria</h3>
+                            <div class="modal-body">
+                                <input class="form-control" name="category" [(ngModel)]="product.category" type="text" id="gForm_1" placeholder="Wpisz kategorię">            
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-outline" (click)="isNewCategoryModalOpen = false">Anuluj</button>
+                                <button type="button" class="btn btn-primary" (click)="handleNewCategory()">Dodaj</button>
+                            </div>
+                        </clr-modal>
+                        
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-lg-2 col-md-12 col-sm-12 col-xs-12">
+                        <label for="gForm_1">Zdjęcie</label>
+                    </div>
+                    <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                        <image-upload
+                        [max]="3"
+                        [buttonCaption]="'Wybierz zdjęcia!'"
+                        [dropBoxMessage]="'Przeciągnij swoje zdjęcia tutaj!'"
+                        [clearButtonCaption]="'Usuń wszystkie zdjęcia'"
+                        [extensions]="['jpg','png','jpeg']"
+                        (uploadFinished)="onUploadFinished($event)"
+                        (removed)="onRemoved($event)"
+                        [url]="urlAddress">
+                      </image-upload>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="text-center">
+                <button type="submit" class="btn btn-success" (click)="saveProduct()">Dodaj produkt</button>
+            </div>
+        </div>
+    </div>
+</form>

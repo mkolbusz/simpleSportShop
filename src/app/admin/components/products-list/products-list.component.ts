@@ -28,4 +28,8 @@ export class ProductsListComponent implements OnInit {
     this.editedProduct = product;
   }
 
+  removeProduct(product: Product) {
+    this.productService.remove(product);
+  }
+
 }

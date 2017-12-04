@@ -71,4 +71,19 @@ export class ProductsService {
   refreshProducts() {
     this.loadProducts();
   }
+
+  removeProduct(id: string) {
+    this.products.next(this.products.getValue().filter(p => p.id !== id));
+  }
+
+  remove(product: Product) {
+    this.http.delete('/products/' + product.getId()).subscribe(
+      res => {
+        this.notifyService.info('Produkt', 'Pomyślnie usunięto produkt');
+      },
+      err => {
+        this.notifyService.error('Produkt', 'Błąd podczas usuwania produktu');
+      }
+    );
+  }
 }
