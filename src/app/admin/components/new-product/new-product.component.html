@@ -73,7 +73,7 @@
                         [extensions]="['jpg','png','jpeg']"
                         (uploadFinished)="onUploadFinished($event)"
                         (removed)="onRemoved($event)"
-                        url="http://localhost:3000/products/image/upload">
+                        [url]="urlAddress">
                       </image-upload>
                     </div>
                 </div>

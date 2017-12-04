@@ -14,6 +14,8 @@ import { NotificationsService } from 'angular2-notifications';
 })
 export class NewProductComponent implements OnInit {
 
+  urlAddress = AppSettings.API_URL + '/products/image/upload';
+
   @Input() product: Product;
   categories: Category[];
   pathToFiles = [];
