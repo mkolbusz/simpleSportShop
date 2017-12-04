@@ -21,8 +21,7 @@
                 <clr-icon shape="caret down"></clr-icon>
             </button>
             <clr-dropdown-menu *clrIfOpen clrPosition="bottom-right">
-                <a href="/admin" clrDropdownItem>Panel administracyjny</a>
-                <a href="..." clrDropdownItem>Preferences</a>
+                <a [routerLink]="/admin" clrDropdownItem>Panel administracyjny</a>
                 <a (click)="logout()" clrDropdownItem>Wyloguj</a>
             </clr-dropdown-menu>
         </clr-dropdown>
