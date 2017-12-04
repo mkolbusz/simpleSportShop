@@ -2,14 +2,15 @@
   "name": "bikes-sales-manager",
   "version": "0.0.0",
   "license": "MIT",
+  "main": "dist/index.html",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve --port=$PORT",
+    "start": "ng serve --port=$PORT --aot --prod --build-optimizer --environment=prod",
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "postinstall": "node --max_old_space_size=400 ./node_modules/@angular/cli/bin/ng serve"
+    "postinstall": "ng build --aot --prod --build-optimizer --environment=prod"
   },
   "private": true,
   "dependencies": {
