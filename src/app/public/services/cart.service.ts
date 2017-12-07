@@ -1,9 +1,9 @@
 import { ProductsService } from './products.service';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
-import { Product } from '../models/product';
-import { CartProduct } from '../models/cart-product';
 import { NotificationsService } from 'angular2-notifications';
+import { CartProduct } from '../../common/models/cart-product';
+import { Product } from '../../common/models/product';
 
 @Injectable()
 export class CartService {

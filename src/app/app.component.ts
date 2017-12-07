@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from './admin/services/auth.service';
 import { Socket } from 'ng-socket-io';
-import { ProductsService } from './services/products.service';
 import { NotificationsService } from 'angular2-notifications';
-import { FilterService } from './services/filter.service';
+import { Router } from '@angular/router';
+import { ProductsService } from './public/services/products.service';
+import { FilterService } from './public/services/filter.service';
 
 @Component({
   selector: 'app-root',
@@ -19,10 +20,11 @@ export class AppComponent implements OnInit {
   };
 
   constructor(
-    private authService: AuthService,
+    // private authService: AuthService,
     private socket: Socket,
     private productsService: ProductsService,
-    private searchService: FilterService
+    private searchService: FilterService,
+    private router: Router
   ) {
   }
 
@@ -48,7 +50,8 @@ export class AppComponent implements OnInit {
     this.searchService.setSearchValue(event.target.value);
   }
 
-  logout() {
-    this.authService.logout();
-  }
+  // logout() {
+  //   this.authService.logout();
+  //   this.router.navigate(['/']);
+  // }
 }

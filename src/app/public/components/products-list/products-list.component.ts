@@ -1,10 +1,9 @@
-import { Product } from './../../models/product';
 import { Component, OnInit, Input } from '@angular/core';
 import { ProductsService } from '../../services/products.service';
 import { CategoriesService } from '../../services/categories.service';
-import { Category } from '../../models/category';
 import { Socket } from 'ng-socket-io';
 import { FilterService } from '../../services/filter.service';
+import { Product } from '../../../common/models/product';
 
 
 @Component({

@@ -1,6 +1,6 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { Product } from '../models/product';
-import { Category } from '../models/category';
+import { Product } from '../../common/models/product';
+import { Category } from '../../common/models/category';
 
 @Pipe({
   name: 'filterByCategory'

@@ -1,8 +1,7 @@
 import { CartService } from './../../services/cart.service';
 import { OrderService } from './../../services/order.service';
-import { Client } from './../../models/client';
-import { Order } from './../../models/order';
 import { Component, OnInit } from '@angular/core';
+import { Order } from '../../../common/models/order';
 
 @Component({
   selector: 'app-checkout',

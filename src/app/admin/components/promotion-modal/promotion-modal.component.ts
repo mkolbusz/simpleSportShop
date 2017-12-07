@@ -1,7 +1,8 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { Product } from '../../../models/product';
 import { AppSettings } from '../../../app-settings';
-import { CustomHttp } from '../../../helpers/custom-http';
+import { Product } from '../../../common/models/product';
+import { AuthHttp } from '../../../common/helpers/custom-http';
+
 
 @Component({
   selector: 'promotion-modal',
@@ -16,7 +17,7 @@ export class PromotionModalComponent implements OnInit {
   time: number;
 
 
-  constructor(private http: CustomHttp) {
+  constructor(private http: AuthHttp) {
     this.isOpen = false;
     this.discount = 0;
     this.time = 0;

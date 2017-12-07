@@ -1,14 +1,14 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
-import { Order } from '../../models/order';
 import { HttpClient } from '@angular/common/http';
 import { AppSettings } from '../../app-settings';
-import { CartProduct } from '../../models/cart-product';
-import { Product } from '../../models/product';
-import { Client } from '../../models/client';
 import { NotificationsService } from 'angular2-notifications';
 import { Http } from '@angular/http';
-import { CustomHttp } from '../../helpers/custom-http';
+import { AuthHttp } from '../../common/helpers/custom-http';
+import { Order } from '../../common/models/order';
+import { CartProduct } from '../../common/models/cart-product';
+import { Product } from '../../common/models/product';
+import { Client } from '../../common/models/client';
 
 @Injectable()
 export class OrdersService {
@@ -16,7 +16,7 @@ export class OrdersService {
   private orders = new BehaviorSubject<Order[]>([]);
   public ordersState = this.orders.asObservable();
 
-  constructor(private http: CustomHttp, private notifyService: NotificationsService) {
+  constructor(private http: AuthHttp, private notifyService: NotificationsService) {
     this.loadOrders();
   }
 

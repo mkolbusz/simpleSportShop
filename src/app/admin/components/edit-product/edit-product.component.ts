@@ -1,6 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { Product } from '../../../models/product';
-import { ProductsService } from '../../../services/products.service';
+import { Product } from '../../../common/models/product';
+import { ProductsService } from '../../../public/services/products.service';
 
 @Component({
   selector: 'edit-product',

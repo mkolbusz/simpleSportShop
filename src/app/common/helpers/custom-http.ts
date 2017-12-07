@@ -4,10 +4,10 @@ import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/observable/throw';
-import { AppSettings } from '../app-settings';
+import { AppSettings } from '../../app-settings';
 
 @Injectable()
-export class CustomHttp extends Http {
+export class AuthHttp extends Http {
     constructor(backend: ConnectionBackend, defaultOptions: RequestOptions) {
         super(backend, defaultOptions);
     }
@@ -36,8 +36,9 @@ export class CustomHttp extends Http {
 
         // add authorization header with jwt token
         const currentUser = JSON.parse(localStorage.getItem('currentUser'));
-        if (currentUser && currentUser.token) {
-            options.headers.append('Authorization', 'Bearer ' + currentUser.token);
+        const token = JSON.parse(localStorage.getItem('token'));
+        if (currentUser && token) {
+            options.headers.append('Authorization', 'Bearer ' + token);
         }
 
         return options;
@@ -52,12 +53,12 @@ export class CustomHttp extends Http {
     }
 }
 
-export function customHttpFactory(xhrBackend: XHRBackend, requestOptions: RequestOptions): Http {
-    return new CustomHttp(xhrBackend, requestOptions);
+export function AuthHttpFactory(xhrBackend: XHRBackend, requestOptions: RequestOptions): Http {
+    return new AuthHttp(xhrBackend, requestOptions);
 }
 
-export let customHttpProvider = {
-    provide: CustomHttp,
-    useFactory: customHttpFactory,
+export let AuthHttpProvider = {
+    provide: AuthHttp,
+    useFactory: AuthHttpFactory,
     deps: [XHRBackend, RequestOptions]
 };

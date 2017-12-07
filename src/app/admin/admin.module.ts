@@ -1,6 +1,5 @@
-import { ProductsService } from './../services/products.service';
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule as AngularCommonModule } from '@angular/common';
 import { ProductsListComponent } from './components/products-list/products-list.component';
 import { routing } from './admin.routers';
 import { ClarityModule } from 'clarity-angular';
@@ -15,9 +14,11 @@ import { AdminToolsComponent } from './components/admin-tools/admin-tools.compon
 import { OrdersListComponent } from './components/orders-list/orders-list.component';
 import { OrdersService } from './services/orders.service';
 import { PromotionModalComponent } from './components/promotion-modal/promotion-modal.component';
+import { CommonModule } from '../common/common.module';
 
 @NgModule({
   imports: [
+    AngularCommonModule,
     CommonModule,
     routing,
     ClarityModule.forRoot(),

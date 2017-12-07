@@ -1,12 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../../services/auth.service';
 import { Router, ActivatedRoute } from '@angular/router';
-import {
-  AuthService as SocialAuthService,
-  FacebookLoginProvider,
-  GoogleLoginProvider,
-  LinkedinLoginProvider
-} from 'ng4-social-login';
 import { NotificationsService } from 'angular2-notifications';
 
 @Component({
@@ -23,7 +17,6 @@ export class LoginComponent implements OnInit {
 
   constructor(
     private authService: AuthService,
-    private socialAuthService: SocialAuthService,
     private route: ActivatedRoute,
     private router: Router,
     private notifyService: NotificationsService
@@ -34,9 +27,6 @@ export class LoginComponent implements OnInit {
   ngOnInit() {
     this.authService.logout();
     this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
-    this.socialAuthService.authState.subscribe((user) => {
-      console.log(user);
-    });
   }
 
   onSubmit() {
@@ -50,10 +40,6 @@ export class LoginComponent implements OnInit {
         this.notifyService.error('Logowanie', 'Błąb podczas logowania. Sprawdź swoje dane.');
       }
     );
-  }
-
-  signInWithGoogle(): void {
-    this.socialAuthService.signIn(GoogleLoginProvider.PROVIDER_ID);
   }
 
 }

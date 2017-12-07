@@ -3,7 +3,7 @@ import { Observable } from 'rxjs/Observable';
 import { ProductsService } from './products.service';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
-import { Category } from '../models/category';
+import { Category } from '../../common/models/category';
 
 @Injectable()
 export class CategoriesService {

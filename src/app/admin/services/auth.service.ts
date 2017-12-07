@@ -1,24 +1,26 @@
 import { Injectable } from '@angular/core';
 import { AppSettings } from '../../app-settings';
 import { Response } from '@angular/http/src/static_response';
-import { CustomHttp } from '../../helpers/custom-http';
+import { ActivatedRoute } from '@angular/router';
+import { AuthHttp } from '../../common/helpers/custom-http';
 
 @Injectable()
 export class AuthService {
 
-  constructor(private http: CustomHttp) { }
+  constructor(private http: AuthHttp, private router: ActivatedRoute) { }
 
   login(email: string, password: string) {
     const credentials = {
-      email: email,
+      username: email,
       password: password
     };
 
-    return this.http.post('/users/login', credentials).map(response => response.json()).map((user: any) => {
-      if (user && user.token) {
-        localStorage.setItem('currentUser', JSON.stringify(user));
+    return this.http.post('/api/auth/login', credentials).map(response => response.json()).map((res: any) => {
+      if (res && res.token) {
+        localStorage.setItem('currentUser', JSON.stringify(res.user));
+        localStorage.setItem('token', JSON.stringify(res.token));
       }
-      return user;
+      return res.user;
     });
   }
 

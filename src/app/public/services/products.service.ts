@@ -1,12 +1,11 @@
-import { AppSettings } from './../app-settings';
-import { Product } from './../models/product';
 import { Observable } from 'rxjs/Observable';
 import { Injectable } from '@angular/core';
 import { of } from 'rxjs/observable/of';
 import 'rxjs/add/operator/map';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { NotificationsService } from 'angular2-notifications';
-import { CustomHttp } from '../helpers/custom-http';
+import { Product } from '../../common/models/product';
+import { AuthHttp } from '../../common/helpers/custom-http';
 
 @Injectable()
 export class ProductsService {
@@ -14,7 +13,7 @@ export class ProductsService {
   private products = new BehaviorSubject<Product[]>([]);
   public productsState = this.products.asObservable();
 
-  constructor(private http: CustomHttp, private notifyService: NotificationsService) {
+  constructor(private http: AuthHttp, private notifyService: NotificationsService) {
     this.loadProducts();
   }
 

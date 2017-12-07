@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Product } from '../../models/product';
 import { ProductsService } from '../../services/products.service';
 import { NgxGalleryOptions, NgxGalleryImage, NgxGalleryAnimation, NgxGalleryImageSize } from 'ngx-gallery';
 import { CartService } from '../../services/cart.service';
+import { Product } from '../../../common/models/product';
 
 @Component({
   selector: 'app-product-details',

@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { Product } from '../../models/product';
 import { CartService } from '../../services/cart.service';
+import { Product } from '../../../common/models/product';
 
 @Component({
   selector: 'product-list-item',
@@ -8,8 +8,6 @@ import { CartService } from '../../services/cart.service';
   styleUrls: ['./product-list-item.component.scss']
 })
 export class ProductListItemComponent implements OnInit {
-
-
 
   qty: number;
   @Input() product: Product;

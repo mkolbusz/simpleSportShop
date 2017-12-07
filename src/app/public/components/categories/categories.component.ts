@@ -1,6 +1,6 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { CategoriesService } from '../../services/categories.service';
-import { Category } from '../../models/category';
+import { Category } from '../../../common/models/category';
 
 @Component({
   selector: 'categories',

@@ -1,11 +1,10 @@
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
-import { Client } from './../models/client';
-import { Order } from './../models/order';
 import { Injectable } from '@angular/core';
-import { AppSettings } from '../app-settings';
-import { CartService } from './cart.service';
 import { NotificationsService } from 'angular2-notifications';
-import { CustomHttp } from '../helpers/custom-http';
+import { Order } from '../../common/models/order';
+import { AuthHttp } from '../../common/helpers/custom-http';
+import { Client } from '../../common/models/client';
+import { Http } from '@angular/http';
 
 @Injectable()
 export class OrderService {
@@ -14,7 +13,7 @@ export class OrderService {
 
   order: Order;
 
-  constructor(private http: CustomHttp, private notifyService: NotificationsService) {
+  constructor(private http: Http, private notifyService: NotificationsService) {
     this.order = new Order(null, [], new Client('', '', '', '', '', '', ''));
     this.orderSource.next(this.order);
   }

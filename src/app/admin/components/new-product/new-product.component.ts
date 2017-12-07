@@ -1,11 +1,11 @@
-import { ProductsService } from './../../../services/products.service';
-import { Product } from './../../../models/product';
 import { Component, OnInit, Input } from '@angular/core';
 import { AppSettings } from '../../../app-settings';
 import { FileHolder } from 'angular2-image-upload/lib/image-upload/image-upload.component';
-import { CategoriesService } from '../../../services/categories.service';
-import { Category } from '../../../models/category';
 import { NotificationsService } from 'angular2-notifications';
+import { Product } from '../../../common/models/product';
+import { Category } from '../../../common/models/category';
+import { ProductsService } from '../../../public/services/products.service';
+import { CategoriesService } from '../../../public/services/categories.service';
 
 @Component({
   selector: 'app-new-product',
