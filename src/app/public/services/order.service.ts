@@ -4,7 +4,6 @@ import { NotificationsService } from 'angular2-notifications';
 import { Order } from '../../common/models/order';
 import { AuthHttp } from '../../common/helpers/custom-http';
 import { Client } from '../../common/models/client';
-import { Http } from '@angular/http';
 
 @Injectable()
 export class OrderService {
@@ -13,7 +12,7 @@ export class OrderService {
 
   order: Order;
 
-  constructor(private http: Http, private notifyService: NotificationsService) {
+  constructor(private http: AuthHttp) {
     this.order = new Order(null, [], new Client('', '', '', '', '', '', ''));
     this.orderSource.next(this.order);
   }
@@ -29,14 +28,7 @@ export class OrderService {
   }
 
   saveOrder() {
-    this.http.put('/order/new', this.order).subscribe(
-      res => {
-        this.notifyService.success('Zamówienie', 'Zamówienie złożone pomyślnie');
-      },
-      err => {
-        console.log('Error occured');
-      }
-    );
+    return this.http.put('/order/new', this.order);
   }
 
 }

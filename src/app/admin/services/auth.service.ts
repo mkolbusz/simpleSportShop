@@ -27,4 +27,10 @@ export class AuthService {
   logout() {
     localStorage.removeItem('currentUser');
   }
+
+  loginWithGoogle(user) {
+    return this.http.post('/api/auth/login/google', user).map(response => response.json()).map((res: any) => {
+      console.log(res);
+    });
+  }
 }

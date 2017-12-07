@@ -15,6 +15,22 @@ import { OrdersListComponent } from './components/orders-list/orders-list.compon
 import { OrdersService } from './services/orders.service';
 import { PromotionModalComponent } from './components/promotion-modal/promotion-modal.component';
 import { CommonModule } from '../common/common.module';
+import {
+  SocialLoginModule,
+  AuthServiceConfig,
+  GoogleLoginProvider,
+} from 'ng4-social-login';
+
+const CONFIG = new AuthServiceConfig([
+  {
+    id: GoogleLoginProvider.PROVIDER_ID,
+    provider: new GoogleLoginProvider('1067732667127-mnv03s04gq8ld62hh18uu6ve5h6q5bo0.apps.googleusercontent.com')
+  },
+]);
+
+export function provideConfig() {
+  return CONFIG;
+}
 
 @NgModule({
   imports: [
@@ -23,10 +39,13 @@ import { CommonModule } from '../common/common.module';
     routing,
     ClarityModule.forRoot(),
     FormsModule,
-    ImageUploadModule.forRoot()
+    ImageUploadModule.forRoot(),
+    SocialLoginModule
   ],
   declarations: [ProductsListComponent, NewProductComponent, LoginComponent,
     EditProductComponent, AdminToolsComponent, OrdersListComponent, PromotionModalComponent],
-  providers: [AuthService, AuthGuard, OrdersService]
+  providers: [
+    AuthService, AuthGuard, OrdersService, { provide: AuthServiceConfig, useFactory: provideConfig }
+  ]
 })
 export class AdminModule { }

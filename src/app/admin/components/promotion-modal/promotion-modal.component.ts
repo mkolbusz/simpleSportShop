@@ -35,10 +35,8 @@ export class PromotionModalComponent implements OnInit {
 
     this.http.put('/promotions/new', promotion).subscribe(
       res => {
-        console.log(res);
       },
       err => {
-        console.log(err);
       }
     );
   }

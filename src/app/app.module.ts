@@ -18,6 +18,7 @@ import { PublicModule } from './public/public.module';
 import { CategoriesComponent } from './public/components/categories/categories.component';
 import { CartWidgetComponent } from './public/components/cart-widget/cart-widget.component';
 import { AuthService } from './admin/services/auth.service';
+import { LogoutComponent } from './common/components/logout/logout.component';
 
 
 
@@ -27,7 +28,8 @@ const socketConfig: SocketIoConfig = { url: AppSettings.API_URL, options: {} };
   declarations: [
     AppComponent,
     CategoriesComponent,
-    CartWidgetComponent
+    CartWidgetComponent,
+    LogoutComponent
   ],
   imports: [
     BrowserModule,
@@ -38,7 +40,7 @@ const socketConfig: SocketIoConfig = { url: AppSettings.API_URL, options: {} };
     PublicModule,
     BrowserAnimationsModule,
     SimpleNotificationsModule.forRoot(),
-    SocketIoModule.forRoot(socketConfig),
+    SocketIoModule.forRoot(socketConfig)
   ],
   providers: [AuthService],
   bootstrap: [AppComponent]

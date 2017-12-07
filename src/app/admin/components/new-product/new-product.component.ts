@@ -47,7 +47,6 @@ export class NewProductComponent implements OnInit {
   }
 
   onUploadFinished(file: FileHolder) {
-    console.log(file);
     const image = JSON.parse(file.serverResponse['_body']);
     this.product.images.push(image.filename);
   }
@@ -58,16 +57,13 @@ export class NewProductComponent implements OnInit {
   }
 
   onRemoved(file: FileHolder) {
-    console.log(file);
     const image = JSON.parse(file.serverResponse['_body']);
     const index = this.product.images.findIndex(img => img === image.filename);
     this.product.images.splice(index, 1);
     this.productsService.removeUploadedPhoto(image.filename).subscribe(
       res => {
-        console.log(res);
       },
       err => {
-        console.log(err);
       }
     );
   }

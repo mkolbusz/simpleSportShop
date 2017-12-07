@@ -35,7 +35,6 @@ export class OrdersListComponent implements OnInit {
   }
 
   getStatusText(status: OrderStatus): string {
-    console.log(status);
     switch (status) {
       case OrderStatus.CANCELED: return 'Anulowane';
       case OrderStatus.WAITING_FOR_ACTIVATION: return 'Oczekujące';

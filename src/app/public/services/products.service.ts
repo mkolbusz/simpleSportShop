@@ -19,7 +19,6 @@ export class ProductsService {
 
   loadProducts(): void {
     this.http.get('/products').map(response => response.json()).subscribe(products => {
-      console.log(products);
       const productsCreated = Object.keys(products).map(key => {
         const p = products[key];
         return new Product(p._id, p.name, p.description, p.qty, p.price, p.images, p.category);
